@@ -1,0 +1,3658 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio — Abdelrahman Mohamed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.3/dist/dotlottie-wc.js" type="module"></script>
+
+  <style>
+    :root {
+      --glass-bg: rgba(255,255,255,0.12);
+      --glass-border: rgba(255,255,255,0.28);
+      --glass-shadow: 0 8px 32px rgba(80,120,255,0.18), 0 1.5px 8px rgba(255,255,255,0.10);
+      --accent: #60a5fa;
+      --accent2: #a78bfa;
+      --accent3: #34d399;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: #06091a;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── Animated mesh background ── */
+    .mesh-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(99,102,241,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(139,92,246,0.30) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 60% at 50% 80%, rgba(59,130,246,0.28) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 10% 70%, rgba(16,185,129,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 90% 70%, rgba(236,72,153,0.18) 0%, transparent 55%),
+        #06091a;
+      animation: meshMove 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes meshMove {
+      0%   { filter: hue-rotate(0deg) brightness(1); }
+      50%  { filter: hue-rotate(15deg) brightness(1.08); }
+      100% { filter: hue-rotate(-10deg) brightness(1.04); }
+    }
+
+    /* floating orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      animation: floatOrb linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes floatOrb {
+      0%   { transform: translateY(0) translateX(0) scale(1); }
+      33%  { transform: translateY(-60px) translateX(40px) scale(1.1); }
+      66%  { transform: translateY(40px) translateX(-30px) scale(0.95); }
+      100% { transform: translateY(0) translateX(0) scale(1); }
+    }
+
+    /* ── Glassmorphism ── */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(22px) saturate(1.6);
+      -webkit-backdrop-filter: blur(22px) saturate(1.6);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .glass-dark {
+      background: rgba(10,15,40,0.45);
+      backdrop-filter: blur(22px) saturate(1.4);
+      -webkit-backdrop-filter: blur(22px) saturate(1.4);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 32px;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      border-radius: 999px;
+    }
+
+    .nav-logo {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links a {
+      color: rgba(226,232,240,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      margin-left: 28px;
+    }
+
+    .nav-links a:hover { color: #60a5fa; }
+
+    /* Mobile tweaks for the floating navbar */
+    @media (max-width: 640px) {
+      nav {
+        padding: 8px 16px;
+      }
+      .nav-inner {
+        padding: 8px 16px;
+      }
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--glass-bg);
+        backdrop-filter: blur(22px) saturate(1.6);
+        -webkit-backdrop-filter: blur(22px) saturate(1.6);
+        flex-direction: column;
+        display: none;
+        padding: 12px 0;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a {
+        margin: 8px 0;
+        font-size: 0.78rem;
+      }
+      .nav-toggle {
+        display: block;
+        background: transparent;
+        border: none;
+        color: rgba(226,232,240,0.9);
+        font-size: 1.3rem;
+        cursor: pointer;
+      }
+    }
+    /* hide toggle on larger screens */
+    .nav-toggle { display: none; }
+
+    /* ── Sections ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-wrap {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+
+    .hero-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin: 0 auto 40px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(139,92,246,0.4));
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.2rem;
+      color: rgba(255,255,255,0.7);
+      box-shadow: 0 0 60px rgba(99,102,241,0.4), 0 0 20px rgba(139,92,246,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(transparent 270deg, rgba(255,255,255,0.25) 360deg);
+      animation: spinBorder 4s linear infinite;
+    }
+
+    @keyframes spinBorder {
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,0.3);
+      background: rgba(52,211,153,0.08);
+    }
+
+    .hero-name {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 30%, #a78bfa 70%, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Typing animation */
+    .typing-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-weight: 600;
+      margin-bottom: 28px;
+      color: rgba(226,232,240,0.85);
+    }
+
+    .typing-text {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Clash Display', sans-serif;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.2em;
+      background: #a78bfa;
+      border-radius: 2px;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-desc {
+      max-width: 560px;
+      margin: 0 auto 40px;
+      color: rgba(226,232,240,0.6);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 24px rgba(99,102,241,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.6);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 30px;
+      border-radius: 999px;
+      background: transparent;
+      color: #e2e8f0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(255,255,255,0.22);
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── Section titles ── */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #6366f1, #a78bfa);
+      margin-bottom: 56px;
+    }
+
+    /* ── About ── */
+    #about { padding: 100px 0; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-card {
+      padding: 40px;
+      border-radius: 28px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .stat-item {
+      padding: 24px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: rgba(226,232,240,0.6);
+      margin-top: 4px;
+    }
+
+    /* ── Skill bar ── */
+    .skill-bar-track {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #6366f1, #a78bfa);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .skill-bar-fill.animate { transform: scaleX(1); }
+
+    /* ── Certificates ── */
+    #certificates { padding: 100px 0; }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .tab-btn {
+      padding: 10px 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: rgba(226,232,240,0.7);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-btn:hover {
+      background: rgba(99,102,241,0.2);
+      color: #fff;
+      border-color: rgba(99,102,241,0.4);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(99,102,241,0.4);
+    }
+
+    .cert-panel {
+      display: none;
+    }
+
+    /* ── Videos ── */
+    #videos { padding: 100px 0; }
+    .video-grid { display: grid; gap: 24px; }
+    .video-card {
+      cursor: pointer;
+      transition: transform 0.2s;
+      text-align: center;
+    }
+    .video-card:hover { transform: translateY(-4px); }
+    .video-icon {
+      color: rgba(226,232,240,0.6);
+      transition: color 0.2s;
+    }
+    .video-card:hover .video-icon { color: var(--accent); }
+
+    .cert-panel.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .cert-card {
+      padding: 28px;
+      border-radius: 22px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeUp 0.4s ease both;
+      position: relative;
+      overflow: visible;
+      background-clip: padding-box;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .cert-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(80,120,255,0.28);
+    }
+
+    .cert-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .cert-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .cert-desc {
+      display: none !important;
+      /* description removed as requested */
+      font-size: 0.85rem;
+      color: rgba(226,232,240,0.6);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .cert-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    .btn-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(99,102,241,0.4);
+      background: rgba(99,102,241,0.1);
+      color: #a5b4fc;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      align-self: flex-start;
+      text-decoration: none;
+    }
+
+    .btn-view:hover {
+      background: rgba(99,102,241,0.3);
+      transform: translateX(4px);
+    }
+
+    /* ── Projects ── */
+    #projects { padding: 100px 0; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.35s, box-shadow 0.35s;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 24px 60px rgba(80,120,255,0.32);
+    }
+
+    .project-thumb {
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .project-body { padding: 24px; }
+
+    .project-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #f1f5f9;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: rgba(226,232,240,0.6);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tech-tag {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: rgba(226,232,240,0.7);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    /* ── Contact ── */
+    #contact { padding: 100px 0 120px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    .contact-info { padding: 40px; border-radius: 28px; }
+
+    .social-links { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: all 0.25s;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .social-link:hover {
+      background: rgba(99,102,241,0.15);
+      border-color: rgba(99,102,241,0.3);
+      transform: translateX(6px);
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .social-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .social-text span {
+      font-size: 0.78rem;
+      color: rgba(226,232,240,0.5);
+    }
+
+    /* Contact form */
+    .contact-form { padding: 40px; border-radius: 28px; }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(226,232,240,0.7);
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #e2e8f0;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .form-input::placeholder { color: rgba(226,232,240,0.3); }
+
+    .form-input:focus {
+      border-color: rgba(99,102,241,0.5);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+    }
+
+    textarea.form-input { resize: vertical; min-height: 130px; }
+
+    /* ── Scroll-reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(226,232,240,0.35);
+      font-size: 0.82rem;
+    }
+
+    /* ── Scroll to top ── */
+    #scrollTop {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(99,102,241,0.3);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+
+    #scrollTop:hover {
+      background: rgba(99,102,241,0.6);
+      transform: translateY(-4px);
+    }
+
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease-out;
+    }
+
+    #loadingScreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* layout: image on top of the card */
+    .cert-row { display:flex; flex-direction:column; gap:12px; }
+    .cert-thumb {
+      display:block;
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:12px;
+      background:rgba(0,0,0,0.04);
+    }
+
+    .cert-body {
+      display:block;
+    }
+    @media (max-width:720px) { .cert-row { flex-direction:column; align-items:stretch; } .cert-thumb{width:calc(100% + 56px);height:200px;} }
+
+    /* ── Skills/Talents Carousel ── */
+    .carousel-slide { flex-direction: column; }
+
+    .review-caption {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      background: rgba(0,0,0,0.6);
+      color: #e2e8f0;
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      margin-top: -8px;
+    }
+    #talents { padding: 100px 0; }
+
+    .carousel-container {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 32px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 20px 60px rgba(99,102,241,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .carousel-container:hover {
+      box-shadow: 0 25px 70px rgba(99,102,241,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%; /* 1:1 aspect ratio */
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(10,15,40,0.6), rgba(30,20,60,0.4));
+      cursor: pointer;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      cursor: pointer;
+      z-index: 0;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 10;
+    }
+
+    .carousel-slide img,
+    .carousel-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-slide:hover img,
+    .carousel-slide:hover video {
+      transform: scale(1.02);
+    }
+
+    /* play icon overlay for video slides */
+    .carousel-slide .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.85);
+      font-size: 3rem;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    /* ensure overlay visible only on video slides */
+    .carousel-slide:not([data-type="video"]) .play-overlay {
+      display: none;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.8);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 20;
+    }
+
+    .carousel-nav:hover {
+      background: rgba(99,102,241,1);
+      transform: translateY(-50%) scale(1.15);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.8), 0 0 20px rgba(99,102,241,0.5);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    .carousel-nav:active {
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .carousel-prev {
+      left: 20px;
+    }
+
+    .carousel-next {
+      right: 20px;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 15;
+      background: rgba(0,0,0,0.4);
+      padding: 10px 16px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1.5px solid rgba(255,255,255,0.4);
+    }
+
+    .carousel-dot:hover {
+      background: rgba(255,255,255,0.5);
+    }
+
+    .carousel-dot.active {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      transform: scale(1.4);
+      border-color: rgba(255,255,255,0.8);
+      box-shadow: 0 0 12px rgba(96,165,250,0.6);
+    }
+
+    .carousel-counter {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      color: rgba(226,232,240,0.85);
+      backdrop-filter: blur(10px);
+      z-index: 15;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .carousel-title {
+      text-align: center;
+      margin-top: 24px;
+      font-family: 'Clash Display', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #f1f5f9, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: #f1f5f9;
+      letter-spacing: 0.02em;
+      padding: 0 16px;
+      min-height: 28px;
+      transition: all 0.4s ease;
+    }
+
+    /* ── Places grid ── */
+    .places-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .place-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(22px) saturate(1.6);
+      -webkit-backdrop-filter: blur(22px) saturate(1.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .place-card video {
+      width: 100%;
+      display: block;
+    }
+
+    .place-name {
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loadingScreen">
+  <dotlottie-wc src="https://lottie.host/5c289ecb-67dc-40b8-b39f-efad128036a0/V6AuBwuTUC.lottie" style="width: 400px;height: 400px" autoplay loop></dotlottie-wc>
+</div>
+
+<!-- Mesh Background -->
+<div class="mesh-bg"></div>
+
+<!-- Floating orbs -->
+<div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,#6366f1,transparent);top:-100px;left:-150px;animation-duration:22s;"></div>
+<div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,#8b5cf6,transparent);bottom:-80px;right:-100px;animation-duration:18s;animation-delay:-6s;"></div>
+<div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,#0ea5e9,transparent);top:50%;left:50%;animation-duration:26s;animation-delay:-12s;"></div>
+
+<!-- ────────────────── NAVBAR ────────────────── -->
+<nav>
+  <div class="nav-inner glass">
+    <div class="nav-logo">Abdelrahman Mohamed</div>
+    <!-- hamburger icon for mobile -->
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="nav-links">
+      <a href="#certificates">Certificates</a>
+      <a href="#videos">Videos</a>
+      <a href="#talents">My Talents</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#gallery">PhotoSessions</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ────────────────── HERO ────────────────── -->
+<section id="hero">
+  <div>
+    <!-- Avatar -->
+    <div class="hero-avatar glass">
+      <img src="assests/avatar.png" alt="Abdelrahman" 
+     style="transform: translateY(35px);">
+    </div>
+
+    <p class="hero-tag">✦ Available for opportunities</p>
+
+    <h1 class="hero-name">Abdelrahman Mohamed<br/>عبدالرحمن محمد سيد</h1>
+
+    <div class="typing-wrap">
+      <span>I'm a</span>
+      <span class="typing-text" id="typingEl"></span><span class="cursor"></span>
+    </div>
+
+    <p class="hero-desc">
+      A passionate developer & creator building digital experiences that blend technology with beautiful design. Open to international & national opportunities.
+    </p>
+
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="#projects" class="btn-primary">
+        <i class="fa-solid fa-rocket"></i> View Projects
+      </a>
+      <a href="#contact" class="btn-outline">
+        <i class="fa-solid fa-envelope"></i> Contact Me
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── ABOUT ────────────────── -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="about-grid">
+
+      <!-- Left: bio -->
+      <div class="reveal">
+        <p class="section-label">// about me</p>
+        <h2 class="section-title">Who Am I?</h2>
+        <div class="section-divider"></div>
+
+        <div class="about-card glass" style="margin-bottom:24px;">
+          <p style="color:rgba(226,232,240,0.75);line-height:1.85;font-size:0.95rem;">
+            Hi! I'm <strong style="color:#f1f5f9;">Abdelrahman Mohamed</strong>, an Embedded Systems Innovator &amp; Developer (IoT Developer). I build scalable, user-centric web applications and design integrated hardware solutions. My technical expertise spans:
+            <ul style="margin-top:8px; margin-left:20px; list-style-type:disc;">
+              <li><strong>Programming:</strong> JavaScript, CSS, HTML, Python (AI Models)</li>
+              <li><strong>Electronics:</strong> Robotics, Arduino, Sensors Integration, Circuit Design</li>
+            </ul>
+            <br/>
+            أنا عبدالرحمن محمد، مطور شغوف بالتكنولوجيا والتصميم. أسعى دائماً لبناء تجارب رقمية مميزة ومؤثرة.
+          </p>
+        </div>
+
+        <!-- Skills -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:rgba(226,232,240,0.7);">
+              <span>Frontend Development</span><span>90%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.90"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:rgba(226,232,240,0.7);">
+              <span>UI/UX Design</span><span>80%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.80"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:rgba(226,232,240,0.7);">
+              <span>Backend / APIs</span><span>70%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.70"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:rgba(226,232,240,0.7);">
+              <span>Problem Solving</span><span>95%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="0.95"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: stats -->
+      <div class="reveal" style="transition-delay:0.15s;">
+        <div class="stat-grid" style="margin-bottom:28px;">
+          <div class="stat-item glass">
+            <div class="stat-num">+55</div>
+            <div class="stat-label">Certificates Earned</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-num">+15</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-num">+8</div>
+            <div class="stat-label">Years Learning</div>
+          </div>
+          <div class="stat-item glass">
+            <div class="stat-num">7+</div>
+            <div class="stat-label">International Certificates</div>
+          </div>
+        </div>
+
+        <!-- Info card -->
+        <div class="glass" style="border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+            <i class="fa-solid fa-location-dot" style="color:#60a5fa;width:20px;"></i>
+            <div>
+              <div style="font-size:0.75rem;color:rgba(226,232,240,0.45);">Location / الموقع</div>
+              <div style="font-size:0.9rem;font-weight:600;">Giza, Egypt / الجيزه, مصر</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);">
+            <i class="fa-solid fa-graduation-cap" style="color:#a78bfa;width:20px;"></i>
+            <div>
+              <div style="font-size:0.75rem;color:rgba(226,232,240,0.45);">Education / التعليم</div>
+              <div style="font-size:0.9rem;font-weight:600;">Third Preparatory / الثالث الاعدادي</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:10px 0;">
+            <i class="fa-solid fa-language" style="color:#34d399;width:20px;"></i>
+            <div>
+              <div style="font-size:0.75rem;color:rgba(226,232,240,0.45);">Languages / اللغات</div>
+              <div style="font-size:0.9rem;font-weight:600;">Arabic · English</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── CERTIFICATES ────────────────── -->
+<section id="certificates">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// شهاداتي</p>
+      <h2 class="section-title">My Certificates</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs reveal">
+      <button class="tab-btn active" onclick="switchTab('international', this)">
+        <i class="fa-solid fa-globe" style="margin-right:6px;"></i>International / دولي
+      </button>
+      <button class="tab-btn" onclick="switchTab('national', this)">
+        <i class="fa-solid fa-flag" style="margin-right:6px;"></i>National / جمهوري
+      </button>
+      <button class="tab-btn" onclick="switchTab('governorate', this)">
+        <i class="fa-solid fa-city" style="margin-right:6px;"></i>Governorate / المحافظة
+      </button>
+      <button class="tab-btn" onclick="switchTab('courses', this)">
+        <i class="fa-solid fa-book-open" style="margin-right:6px;"></i>Courses / كورسات
+      </button>
+      <button class="tab-btn" onclick="switchTab('activities', this)">
+        <i class="fa-solid fa-star" style="margin-right:6px;"></i>Activities / نشاطات
+      </button>
+    </div>
+
+    <!-- International -->
+    <div class="cert-panel active" id="panel-international">
+      <div class="cert-grid">
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Security and Connectivity Support.jpg" alt="Security and Connectivity Support" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Security and Connectivity Support</div>
+                <div class="cert-desc">This professional certificate was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Security and Connectivity Support" course. The program was offered by the Ministry of Education-Giza (SP) in collaboration with the globally recognized Cisco Networking Academy.
+
+The course provided specialized training in network security and infrastructure connectivity, covering essential skills for maintaining and securing modern digital networks.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Operating Systems Support.jpg" alt="Operating Systems Support" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Operating Systems Support</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Operating Systems Support" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP).
+
+This course focused on the foundational knowledge and practical skills required to support, configure, and manage various operating systems, ensuring optimal performance and troubleshooting system-level issues.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Networking Devices and Initial Configuration.jpg" alt="Networking Devices and Initial Configuration" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Networking Devices and Initial Configuration</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Networking Devices and Initial Configuration" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course focused on the fundamental principles of networking hardware, including the identification of various networking devices and the practical skills required for their initial setup and configuration.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Network Support and Security.jpg" alt="Network Support and Security" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Network Support and Security</div>
+                <div class="cert-desc">This professional certificate was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Network Support and Security" course. The program was provided by the Ministry of Education-Giza (SP) through the Cisco Networking Academy.
+
+The course focused on the essential principles of maintaining network integrity, providing technical support, and implementing security protocols to protect data and infrastructure.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Networking Basics.jpg" alt="Networking Basics" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Networking Basics</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Networking Basics" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course provided a comprehensive introduction to the fundamental concepts of networking. It covered essential topics such as how networks operate, the roles of different network components, and the basic principles of data transmission and communication protocols.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Network Defense.jpg" alt="Network Defense" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Network Defense</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Network Defense" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course focused on the strategies and tools necessary to protect network infrastructures from cyber threats. It covered key concepts in proactive defense, monitoring, and responding to security incidents to ensure the resilience of digital assets.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Network Addressing and Basic Troubleshooting.jpg" alt="Network Addressing and Basic Troubleshooting" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Network Addressing and Basic Troubleshooting</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Network Addressing and Basic Troubleshooting" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course focused on the critical skills of IP addressing, subnetting, and the fundamental techniques required to identify and resolve common network connectivity issues.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/IT Customer Support Basics.jpg" alt="IT Customer Support Basics" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">IT Customer Support Basics</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "IT Customer Support Basics" course. The program was offered by the Ministry of Education-Giza (SP) through the Cisco Networking Academy.
+
+The course provided essential training in the fundamental principles of IT customer service. It covered effective communication strategies, technical troubleshooting methodologies, and the "soft skills" required to provide high-quality support to end-users in a professional environment.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Introduction to Modern AI.jpg" alt="Introduction to Modern AI" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Introduction to Modern AI</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Introduction to Modern AI" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP).
+
+The course provided a foundational exploration of modern Artificial Intelligence, covering its core concepts, practical applications, and the transformative role AI plays in today's digital landscape.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Hardware and Upgrade Support.jpg" alt="Hardware and Upgrade Support" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Hardware and Upgrade Support</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Hardware and Upgrade Support" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP).
+
+The course provided comprehensive training on identifying computer hardware components, performing system upgrades, and providing technical support to ensure hardware reliability and performance.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Introduction to Cybersecurity.jpg" alt="Introduction to Cybersecurity" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Introduction to Cybersecurity</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Introduction to Cybersecurity" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course provided a comprehensive overview of the cybersecurity landscape, covering the importance of data confidentiality, integrity, and availability. It also introduced common cyber threats, vulnerabilities, and the protective measures used by individuals and organizations to safeguard digital assets.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/English for IT 2.jpg" alt="English for IT 2" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">English for IT 2</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "English for IT 2" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP) and OpenEDG.
+
+The course focused on advanced English language skills tailored specifically for IT professionals, including technical terminology, professional communication in a tech environment, and the ability to understand and create complex technical documentation.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Endpoint Security.jpg" alt="Endpoint Security" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Endpoint Security</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Endpoint Security" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course provided in-depth knowledge on protecting network endpoints—such as computers, laptops, and mobile devices—from malicious threats and exploitation. It covered essential security concepts, including vulnerability management, encryption, and the implementation of security policies to ensure the integrity of a network's perimeter.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/English for IT 1.jpg" alt="English for IT 1" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">English for IT Professionals</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "English for IT 1" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP) and OpenEDG.
+
+The course provided a foundational level of English language skills specifically designed for IT professionals. It covered essential technical vocabulary, core grammar within a tech context, and the communication skills needed to participate effectively in technical discussions and understand basic IT documentation.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Cyber Threat Management.jpg" alt="Cyber Threat Management" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Cyber Threat Management</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Cyber Threat Management" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
+
+The course provided advanced training on how to explore, monitor, and manage cyber threats effectively. It covered the methodologies used to identify potential vectors of attack and the implementation of governance and control frameworks to mitigate risks and maintain organizational security.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/AI Fundamentals with IBM SkillsBuild.jpg" alt="AI Fundamentals with IBM SkillsBuild" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">AI Fundamentals with IBM SkillsBuild</div>
+                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "AI Fundamentals with IBM SkillsBuild" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP) and IBM.
+
+The course provided a solid foundation in Artificial Intelligence, covering the core principles of AI, its ethical considerations, and how it is being utilized to solve real-world problems. This certification demonstrates a modern understanding of AI technologies backed by two of the world's leading tech giants.</div>
+                <div class="cert-date">2025 · IBM SkillsBuild and Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/سيسكو امتحان دولي عبدالرحمن محمد سيد حسن-page-00001.jpg" alt="Cisco Certified Support Technician (CCST) Networking" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Cisco Certified Support Technician (CCST) Networking</div>
+                <div class="cert-desc">This is a globally recognized professional certification awarded to Abdelrahman Mohamed Sayed by Cisco. It validates the holder's fundamental knowledge and skills required to perform entry-level IT support tasks, specifically in the field of networking.
+
+Achieving this certification demonstrates a verified ability to understand network operations, security, and troubleshooting at a professional standard.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/bank misr x google mahrat digital marketing-page-00001.jpg" alt="Fundamentals of Digital Marketing" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Fundamentals of Digital Marketing</div>
+                <div class="cert-desc">This professional training completion certificate was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Maharat min Google: Fundamentals of Digital Marketing" course. The program was delivered by Google in strategic partnership with Banque Misr.
+
+The course provided a comprehensive foundation in digital marketing strategies, including search engine optimization (SEO), social media marketing, content strategy, and data analytics to drive business growth in the digital age.</div>
+                <div class="cert-date">2025 · Google and Bank Misr</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>  
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Cisco Digital Winter CyberSecurity-page-00001.jpg" alt="Cisco Certified Support Technician (CCST) Cybersecurity" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Cisco Certified Support Technician (CCST) Cybersecurity</div>
+                <div class="cert-desc">This is a high-level, globally recognized professional certification awarded to Abdelrahman Mohamed Sayed by Cisco. It validates the holder's professional expertise in the foundational principles of cybersecurity.
+
+Achieving this certification demonstrates a verified ability to:
+
+Understand and implement security principles, network security, and endpoint security.
+
+Handle vulnerability management and incident response.
+
+Navigate the complexities of data protection and digital forensics at a professional standard.</div>
+                <div class="cert-date">2025 · Cisco Networking Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/20260223204655822_0001.jpg" alt="Be Internet Awesome" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Be Internet Awesome</div>
+                <div class="cert-desc">This certificate was awarded to Abdelrahman Mohamed Sayed by Google for successfully completing the "Be Internet Awesome" program. This initiative focuses on empowering individuals to navigate the digital world safely, confidently, and responsibly.
+
+By earning this certificate, Abdelrahman has demonstrated core digital literacy skills, including:
+
+Smartness: Knowing how to share information carefully with others.
+
+Alertness: Distinguishing between what is real and what is fake online.
+
+Stronghold: Creating secure passwords to protect personal information.
+
+Kindness: Spreading positivity and standing up against cyberbullying.
+
+Bravery: Understanding the importance of open communication with trusted adults about online activities.</div>
+                <div class="cert-date">2024 · Google</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Python Programming Basics.png" alt="Python Programming Basics" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Python Programming Basics</div>
+                <div class="cert-desc">for successfully completing the study and exam for the "Python Programming Basics" course. The program was delivered through the Huawei ICT Academy, a global initiative that provides industry-standard technology education.
+
+This certification validates the holder's foundational knowledge in Python programming, covering essential syntax, data structures, and the logic required to develop efficient software solutions.</div>
+                <div class="cert-date">2026 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Information Representation and Data Organization.png" alt="Information Representation and Data Organization" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Information Representation and Data Organization</div>
+                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Information Representation and Data Organization" course. The program was delivered by the Huawei ICT Academy, a global leader in providing industry-aligned technical education.
+
+The course curriculum focused on the fundamental methods of representing information in digital systems and the advanced logic of data organization, which are essential building blocks for data science and AI.</div>
+                <div class="cert-date">2026 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Data Analasis.png" alt="Data Analysis" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Data Analysis</div>
+                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Data Management and Analytics" course. The program was delivered through the Huawei ICT Academy, ensuring a curriculum aligned with global industry standards.
+
+The course provided comprehensive training on the lifecycle of data, including how to efficiently manage, organize, and analyze large datasets to extract meaningful insights for decision-making.</div>
+                <div class="cert-date">2026 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Cloud Computing.png" alt="Cloud Computing" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Cloud Computing</div>
+                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Development and Basic Concepts of Cloud Computing" course. The program was delivered through the Huawei ICT Academy, ensuring a curriculum that meets international industry standards.
+
+The course focused on the evolution of cloud technologies, covering the fundamental architecture, service models, and core concepts essential for developing and managing cloud-based solutions.</div>
+                <div class="cert-date">2026 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Overview of AI (Arabic).png" alt="Overview of AI (Arabic)" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Overview of AI (Arabic)</div>
+                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Overview of AI (Arabic)" course. The program was delivered through the Huawei ICT Academy, providing a comprehensive introduction to the field of Artificial Intelligence.
+
+The course covered the foundational concepts, history, and modern applications of AI, specifically tailored to provide a deep understanding of how these technologies are shaping the future of the ICT industry.</div>
+                <div class="cert-date">2025 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+                </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/Al Basic Overview of AI(CRA Training Program).png" alt="Al Basic Overview of AI(CRA Training Program)" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Al Basic Overview of AI(CRA Training Program)</div>
+                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "AI Basic: Overview of AI" course. The program was delivered as part of the CRA Training Program through the Huawei ICT Academy.
+
+The course provided a deep dive into the foundational elements of Artificial Intelligence, including its core technologies, industry trends, and practical use cases, ensuring a strong technical background in AI applications.</div>
+                <div class="cert-date">2025 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/international/overview of ai.png" alt="Overview of AI" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Overview of AI</div>
+                <div class="cert-desc">Awarded to Abdelrahman Mohamed Sayed Hassan in recognition of his commitment and successful completion of the "Overview of AI" course. This training was part of a month-long virtual program in July 2022, supported by partners such as The American University in Cairo</div>
+                <div class="cert-date">2025 · Huawei ICT Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+      </div>
+    </div>
+
+    <!-- National -->
+    <div class="cert-panel" id="panel-national">
+      <div class="cert-grid">
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/20260223204752923_0001.jpg" alt="National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)</div>
+                <div class="cert-desc">Ranked 1st across Giza Governorate and achieved 3rd Place Nationwide in the prestigious 'Little Innovator' competition (2024/2025). This award recognizes exceptional national-level excellence in creative thinking, technical innovation, and project development for preparatory schools.</div>
+                <div class="cert-date">2024 · Sheikh Zayed Administration</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/national/20260223204952864_0001.jpg" alt="1st Place Nationwide in Coding & AI" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">1st Place Winner - Coding & AI Competition</div>
+                <div class="cert-desc">Achieved 1st Place at the National Level in the Coding Languages and Artificial Intelligence competition (Preparatory Stage, 2024/2025). Recognized by the Ministry of Education for exceptional technical performance, programming logic, and innovative use of AI.</div>
+                <div class="cert-date">2025 · Ministry of Education</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/national/شهادات المسابقات _الصيفية_2025_إنجازات بلدي-6 (1)-page-00001.jpg" alt="6th Place Winner - Enjazat Baladi Research Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">6th Place Nationwide - "Enjazat Baladi" Research Competition</div>
+                <div class="cert-desc">Ranked 6th at the National Level in the 'Enjazat Baladi' competition (2025), organized by the Ministry of Education. This award recognizes high-level skills in scientific research, data analysis, and the ability to document national developmental projects.</div>
+                <div class="cert-date">2025 · Ministry of Education</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/national/شهادات المسابقات _الصيفية_2025_التكنولوجيا الخضراء-10 (1)-page-00001.jpg" alt="7th Place Nationwide - "Green Technology" Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">7th Place Nationwide - "Green Technology" Competition</div>
+                <div class="cert-desc">Achieved 7th Place in the "Green Technology" competition organized by the Ministry of Education. This award recognizes innovation in sustainable technology and environmental awareness.</div>
+                <div class="cert-date">2025 · Ministry of Education</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/national/digitopia عبدالرحمن محمد سيد حسن-page-00001.jpg" alt="DIGITOPIA Competition Finalist" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">DIGITOPIA Competition Finalist</div>
+                <div class="cert-desc">Recognized by the Ministry of Communications and Information Technology (MCIT) for active participation and reaching the Second Stage of the 'DIGITOPIA' competition (2025) in the field of Software & Artificial Intelligence. This achievement reflects advanced skills in AI technologies and software development among the top young talents in Egypt.</div>
+                <div class="cert-date">2025 · Ministry of Communications and Information Technology</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+      </div>
+    </div>
+
+    <!-- Governorate / المحافظة -->
+    <div class="cert-panel" id="panel-governorate">
+      <div class="cert-grid">
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/20260223204825908_0001.jpg" alt="First Place Award - &quot;The Little Innovator&quot; Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">First Place Award - "The Little Innovator" Competition</div>
+                <div class="cert-desc">Achieved First Place in 'The Little Innovator' competition at the district level. This prestigious award recognizes exceptional creativity, problem-solving abilities, and the successful development of an innovative project.</div>
+                <div class="cert-date">2024 · Bent Elsediq School</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/20260223204752923_0001.jpg" alt="National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)</div>
+                <div class="cert-desc">Ranked 1st across Giza Governorate and achieved 3rd Place Nationwide in the prestigious 'Little Innovator' competition (2024/2025). This award recognizes exceptional national-level excellence in creative thinking, technical innovation, and project development for preparatory schools.</div>
+                <div class="cert-date">2024 · Sheikh Zayed Administration</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/20260223204545007_0001.jpg" alt="Top Student Rank" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Top Student Rank</div>
+                <div class="cert-desc">Honored as one of the top-ranking students in the 4th Grade (2020/2021) for achieving perfect scores in all academic subjects. This award highlights a long-standing commitment to academic excellence and a strong educational foundation.</div>
+                <div class="cert-date">2021 · Bent Elsediq School</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/20260223204343408_0001.jpg" alt="6th Place Nationwide - Enjazat Baladi Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">6th Place Nationwide - "Enjazat Baladi" Competition</div>
+                <div class="cert-desc">Achieved 6th Place at the National Level in the 'Enjazat Baladi' competition. This award recognizes deep research skills and a strong understanding of national development projects, demonstrating the ability to analyze and present large-scale governmental initiatives.</div>
+                <div class="cert-date">2026 · Sheikh Zayed Administration</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/WhatsApp Image 2025-06-30 at 21.33.52_cf410b13.jpg" alt="1st Place Winner - "Digital October Heroes" Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">1st Place Winner - "Digital October Heroes" Competition</div>
+                <div class="cert-desc">Awarded 1st Place in the 'Digital October Heroes' competition across Giza Governorate, organized by the IT Academy and the Ministry of Education. This award recognizes mastery in digital tools, creative content creation, and technical excellence in honoring national history through technology.</div>
+                <div class="cert-date">2025 · Giza Directorate of Education</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/governorate/WhatsApp Image 2025-02-03 at 19.55.34_5e1910b2.jpg" alt="2nd Place Winner - AI Animation Video Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">2nd Place Winner - AI Animation Video Competition</div>
+                <div class="cert-desc">Achieved 2nd Place in the AI Animation Video competition organized by the IT Academy in Giza. This award demonstrates proficiency in utilizing Artificial Intelligence tools to create creative digital content and advanced animation.</div>
+                <div class="cert-date">2025 · Giza Directorate of Education</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+      </div>
+    </div>
+
+    <!-- Courses -->
+    <div class="cert-panel" id="panel-courses">
+      <div class="cert-grid">
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/certificate-page-00001.jpg" alt="CodeCombat Certification - Introduction to Computer Science" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">CodeCombat Certification - Introduction to Computer Science</div>
+                <div class="cert-desc">Successfully completed the Introduction to Computer Science course on CodeCombat. Developed 165 lines of Python code across 18 levels, mastering core programming concepts including Algorithms, Variables, While Loops, Strings, and Basic Syntax.</div>
+                <div class="cert-date">2021 · CodeIt Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Deci Level 2-page-00001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - Level 2 Completion" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - Level 2 Completion</div>
+                <div class="cert-desc">Successfully completed Level 2 of the Digital Egypt Cubs Initiative (DECI), a flagship national program by the Ministry of Communications and Information Technology. This scholarship recognizes elite students in Egypt, focusing on building advanced digital skills and preparing the next generation of technology leaders.</div>
+                <div class="cert-date">2025 · Ministry of Communications and Information Technology</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Deci SummerCamp-page-00001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - Summer Camp Achievement Award" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - Summer Camp Achievement Award</div>
+                <div class="cert-desc">Awarded a Premium Award for exceptional accomplishments during the DECI Summer Camp (Batch 2, August 2024). This recognition by the Ministry of Communications and Information Technology highlights advanced technical skills, teamwork, and innovative thinking in a competitive intensive training environment.</div>
+                <div class="cert-date">2024 · Ministry of Communications and Information Technology</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/عبدالرحمن محمد سيد حسن-page-00001.jpg" alt="&quot;Our World with AI&quot; Workshop - Professional Development Initiative" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">"Our World with AI" Workshop - Professional Development Initiative</div>
+                <div class="cert-desc">Participated in an intensive workshop titled 'Our World with Artificial Intelligence' (June 2023). This training focused on the fundamental impact of AI technologies on our modern world and explored the future of digital transformation.</div>
+                <div class="cert-date">2023 · Develop Yourself Initiative</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Deci Level 1-page-00001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - Level 1 Completion" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - Level 1 Completion</div>
+                <div class="cert-desc">Successfully completed Level 1 of the Digital Egypt Cubs Initiative (DECI) in October 2024. This national scholarship by the Ministry of Communications and Information Technology is designed to identify and nurture top technological talents across Egypt, providing a solid foundation in digital literacy and advanced IT concepts.</div>
+                <div class="cert-date">2024 · Ministry of Communications and Information Technology</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/20260223204909354_0001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - &quot;August Challenge&quot; Achievement Award" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - "August Challenge" Achievement Award</div>
+                <div class="cert-desc">Achieved 1st Place at the National Level in the Coding Languages and Artificial Intelligence competition (Preparatory Stage, 2024/2025). Recognized by the Ministry of Education for exceptional technical performance, programming logic, and innovative use of AI.</div>
+                <div class="cert-date">2024 · Ministry of Communications and Information Technology</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Technology Academy Python.jpg" alt="Python Programming - Level 1 Achievement Award" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Technology Academy - Python Programming Level 1 Achievement Award</div>
+                <div class="cert-desc">Successfully completed Level 1 of Python Programming with exceptional performance. Demonstrated high efficiency, commitment, and a unique ability to learn and develop, mastering the core foundations of Python coding.</div>
+                <div class="cert-date">2025 · Giza Information Technology Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0022.jpg" alt="Python Programming Foundation" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Python Programming Foundation</div>
+                <div class="cert-desc">Completed the Python programming foundation course at CodeIt Academy (December 2021). This early certification marks the beginning of a dedicated journey in software development, focusing on logic building and core coding principles from a young age.</div>
+                <div class="cert-date">2021 · CodeIt Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0020.jpg" alt="1st Place Nationwide in Coding & AI" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">"Hello Python" - Level (1) Completion Certificate</div>
+                <div class="cert-desc">Successfully completed Level (1) of the 'Hello Python' programming course at CodeIt Academy (April 2022). This certification confirms early proficiency in Python syntax and basic logic building within a structured academic environment.</div>
+                <div class="cert-date">2022 · CodeIt Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0021.jpg" alt="CSW Generative AI - Certificate of Completion" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">CSW Generative AI - Certificate of Completion</div>
+                <div class="cert-desc">Successfully completed the CSW Generative AI program (December 2024), a collaborative initiative by Microsoft, Care Egypt, and the Ministry of Youth and Sports. Gained proficiency in modern Generative AI tools and their applications in creating innovative digital solutions.</div>
+                <div class="cert-date">2024 · Ministry of Youth and Sports</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0018.jpg" alt="Robotics Engineering Course" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Robotics Engineering Course</div>
+                <div class="cert-desc">Successfully completed an intensive 20-hour Robotics course at IQ Academy. Gained hands-on experience in robot design, assembly, and programming, bridging the gap between hardware engineering and software logic.</div>
+                <div class="cert-date">2016 · IQ Academy</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan(the auc's fun lab)_page-0001.jpg" alt="1st Place Nationwide in Coding & AI" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">The AUC’s Fun Lab - Summer Training Certificate</div>
+                <div class="cert-desc">Successfully completed 'The AUC’s Fun Lab' summer training (July 2022), an interactive virtual program organized by The American University in Cairo (AUC) and Madrasaty. This program focused on fostering scientific curiosity, experimental learning, and innovative thinking through hands-on virtual lab activities.</div>
+                <div class="cert-date">2022 · The American University in Cairo</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan (رحلة داجل جسم النسان)_page-0001.jpg" alt="A Journey Inside the Human Body" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">A Journey Inside the Human Body</div>
+                <div class="cert-desc">This certificate was awarded to Abdelrahman Mohamed Sayed Hassan by the Madrasati platform in recognition of his outstanding commitment and successful completion of the specialized course "A Journey Inside the Human Body." The program was a key component of the Madrasati Virtual Summer Training for Children, held throughout July 2022. The curriculum focused on introducing complex biological concepts in an engaging, interactive format</div>
+                <div class="cert-date">2022 · Madrasati</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan(robotics) _page-0001.jpg" alt="Introduction to Robotics" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Introduction to Robotics</div>
+                <div class="cert-desc">This certificate of appreciation was awarded to Abdelrahman Mohamed Sayed Hassan for his remarkable commitment and successful completion of the "Introduction to Robotics" course. The program was part of the Madrasati Virtual Summer Training for Children, which took place throughout July 2022. The course provided a foundational understanding of robotics and engineering principles in an interactive online environment.</div>
+                <div class="cert-date">2022 · Madrasati</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan (math)_page-0001.jpg" alt="Math Competition" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Math for Kids</div>
+                <div class="cert-desc">Awarded to Abdelrahman Mohamed Sayed Hassan in recognition of his commitment and successful completion of the "Math for Kids" course. This training was part of a month-long virtual program in July 2022, supported by partners such as The American University in Cairo</div>
+                <div class="cert-date">2022 · Madrasati</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+      </div>
+    </div>
+
+    <!-- Activities -->
+    <div class="cert-panel" id="panel-activities">
+      <div class="cert-grid">
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/activities/20260223204514547_0001.jpg" alt="Egyptian Swimming Federation" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Egyptian Swimming Federation</div>
+                <div class="cert-desc">Awarded the Star Evaluation Certification by the Egyptian Swimming Federation at UFC Gym Egypt, demonstrating high-level physical fitness, discipline, and advanced swimming techniques.</div>
+                <div class="cert-date">2022 · The Club</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+       <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/activities/20260223204312194_0001.jpg" alt="Gifted and Smart Learning Department" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Gifted and Smart Learning Department</div>
+                <div class="cert-desc">Awarded a Certificate of Merit by the Ministry of Education (Gifted and Smart Learning Department) for exceptional talent and excellence in Computer and Theater, recognizing both technical and creative skills.</div>
+                <div class="cert-date">2025 · Bent Elsediq School</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+        <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/activities/20260223204422669_0001.jpg" alt="Computer Technology Training" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Computer Technology Training</div>
+                <div class="cert-desc">Successfully completed an intensive Summer Training Program in Computer and Information Technology organized by the Ministry of Education (Sheikh Zayed District). Recognized for active participation, commitment, and creative contributions to the program’s success.</div>
+                <div class="cert-date">2025 · Bent Elsediq School</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/activities/20260223204230060_0001.jpg" alt="School Excellence Award in Computer" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">School Excellence Award in Computer</div>
+                <div class="cert-desc">Received the School Excellence Award in Computer for outstanding academic performance and technical skills in computer science.</div>
+                <div class="cert-date">2025 · Bent Elsediq School</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/activities/20260223204153051_0001.jpg" alt="School Excellence Award in Computer" onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">School Excellence Award in Computer</div>
+                <div class="cert-desc">Awarded a Certificate of Appreciation by Bent Al-Siddiq Language School for demonstrating exceptional excellence and a collaborative spirit within the computer laboratory, reflecting strong leadership and teamwork skills</div>
+                <div class="cert-date">2023 · Bent Elsediq School</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ────────────────── HONORS CAROUSEL ────────────────── -->
+<section id="takrimaty" aria-label="تكريماتي">
+  <div class="section-wrap">
+    <!-- carousel (تكريماتي) without any visible title -->
+    <div class="reveal" style="transition-delay:0.15s;">
+      <div class="carousel-container" id="takrimaty-carousel">
+        <div class="carousel-wrapper">
+          <!-- slides: replace src paths with your own honor images -->
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (1).jpeg" data-title="تكريم 1">
+            <img src="assests/takrimaty/1 (1).jpeg" alt="تكريم 1">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (1).jpg" data-title="تكريم 2">
+            <img src="assests/takrimaty/1 (1).jpg" alt="تكريم 2">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (2).jpeg" data-title="تكريم 3">
+            <img src="assests/takrimaty/1 (2).jpeg" alt="تكريم 3">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (3).jpeg" data-title="تكريم 4">
+            <img src="assests/takrimaty/1 (3).jpeg" alt="تكريم 4">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (4).jpeg" data-title="تكريم 5">
+            <img src="assests/takrimaty/1 (4).jpeg" alt="تكريم 5">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (5).jpeg" data-title="تكريم 6">
+            <img src="assests/takrimaty/1 (5).jpeg" alt="تكريم 6">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (6).jpeg" data-title="تكريم 7">
+            <img src="assests/takrimaty/1 (6).jpeg" alt="تكريم 7">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (7).jpeg" data-title="تكريم 8">
+            <img src="assests/takrimaty/1 (7).jpeg" alt="تكريم 8">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (8).jpeg" data-title="تكريم 9">
+            <img src="assests/takrimaty/1 (8).jpeg" alt="تكريم 9">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (9).jpeg" data-title="تكريم 10">
+            <img src="assests/takrimaty/1 (9).jpeg" alt="تكريم 10">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (10).jpeg" data-title="تكريم 11">
+            <img src="assests/takrimaty/1 (10).jpeg" alt="تكريم 11">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (11).jpeg" data-title="تكريم 12">
+            <img src="assests/takrimaty/1 (11).jpeg" alt="تكريم 12">
+          </div>
+          <!-- add additional .carousel-slide elements as needed -->
+        </div>
+
+        <!-- navigation buttons -->
+        <button class="carousel-nav carousel-prev" onclick="prevTakrimatySlide(event)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="carousel-nav carousel-next" onclick="nextTakrimatySlide(event)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- slide counter -->
+        <div class="carousel-counter">
+          <span id="takrimaty-current-slide">1</span> / <span id="takrimaty-total-slides">12</span>
+        </div>
+
+        <!-- dots indicator -->
+        <div class="carousel-dots">
+          <span class="carousel-dot active" onclick="goToTakrimatySlide(0, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(1, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(2, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(3, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(4, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(5, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(6, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(7, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(8, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(9, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(10, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(11, event)"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── VIDEOS ────────────────── -->
+<section id="videos">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// فيديوهاتي</p>
+      <h2 class="section-title">My Videos</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="video-grid grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-8 reveal">
+      <!-- example items (local files) -->
+      <div class="video-card glass p-6" data-video="assests/Sucsses Trip.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">My Journey to 3rd Place Nationally</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Acting.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Acting Performance</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Python Racing.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">My first project in Python when I was 9 years old</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Python Code Explanation With Miss Reem.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Python Code Explanation With Miss Reem</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Makers Unboxing.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Makers Electroncis Unboxing</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Flying Penguin.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Flying Penguin Yahoboom Lego Robotics</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/3D Projects.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">3d Project</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Color Sorter Lego Yahoboom.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Color Sorter Lego Yahoboom</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Cisco Digital Summer.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Cisco Digital Summer</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Al-Khwarizmi.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Al-Khwarizmi Educational Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Ramadan Video.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Ramadan Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Apple Vision Pro.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Apple Vision Pro Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Eid Video.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Eid Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/October War V2.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">October War V2</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/October War.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">October War</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Khalst.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Pov : Me When I Finish A</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Electricity Rationalization.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Electricity Rationalization Song</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Water Rationalization.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Water Rationalization Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Technology Video.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Technology Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Burger Ad.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Burger Ad</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Present Pulse Oxymeter.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Present Pulse Oxymeter</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Ramadan Slow Motion Video.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Ramadan Slow Motion Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Green Egypt.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Green Egypt Explanition Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Egyption Museam.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Egyption Museam Explanition Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Manasety Elta3lemya.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Manasety Elta3lemya Explanition Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/misr hadara.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Misr Elhadara Explanition Video</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/slowmotion mini film.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Small Slow Motion Film</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Dynamic Island On Computer.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Dynamic Island On Computer</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Editing Without Phone.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Editing Without Phone</div>
+      </div>
+      <div class="video-card glass p-6" data-video="assests/Editing With Phone.mp4">
+        <div class="video-icon text-5xl"><i class="fa-solid fa-play-circle"></i></div>
+        <div class="video-title mt-3 font-semibold">Editing With Phone</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── PROJECTS ────────────────── -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// my work</p>
+      <h2 class="section-title">Some Of Featured Projects</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card glass reveal">
+        <img class="cert-thumb" src="assests/projects/codemasters.png" alt="Monitoring drowsiness and dizziness" onerror="this.style.display='none'">
+        <div class="project-body">
+          <div class="project-title">Smart Health Monitoring System: Drowsiness & Dizziness Detection</div>
+          <p class="project-desc">This innovative IoT project is a comprehensive health monitoring system designed to provide real-time analysis of a user's physiological state to prevent accidents caused by sudden dizziness or drowsiness. By leveraging a high-performance ESP32 (BLE) microcontroller, the system creates a seamless link between wearable sensors and a sophisticated digital dashboard to ensure constant safety surveillance.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Html</span>
+            <span class="tech-tag">JavaScipt</span>
+            <span class="tech-tag">Css</span>
+          </div>
+          <div class="project-links">
+            <a href="https://abdoprogrammer2011.github.io/Demo-Health-Web/" class="btn-view" target="_blank"><i class="fa-solid fa-link"></i> Live Demo</a>
+            <a href="https://github.com/abdoprogrammer2011/Demo-Health-Web" class="btn-view" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card glass reveal">
+        <img class="cert-thumb" src="assests/projects/course-web.png" alt="Monitoring drowsiness and dizziness" onerror="this.style.display='none'">
+        <div class="project-body">
+          <div class="project-title">AI & Robotics Educational Platform</div>
+          <p class="project-desc">A comprehensive web-based educational platform designed to teach the fundamentals of Robotics, Electronics, and Artificial Intelligence. The website provides a structured learning path for engineering students and tech enthusiasts, featuring interactive modules and real-world project applications.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Html</span>
+            <span class="tech-tag">JavaScipt</span>
+            <span class="tech-tag">Css</span>
+            <span class="tech-tag">ApiS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://abdoprogrammer2011.github.io/Course-web/" class="btn-view" target="_blank"><i class="fa-solid fa-link"></i> Live Demo</a>
+            <a href="https://github.com/abdoprogrammer2011/Course-web" class="btn-view" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card glass reveal">
+        <img class="cert-thumb" src="assests/projects/periodic-table.png" alt="Monitoring drowsiness and dizziness" onerror="this.style.display='none'">
+        <div class="project-body">
+          <div class="project-title">Interactive Modern Periodic Table & Virtual Science Lab</div>
+          <p class="project-desc">A massive, all-in-one educational ecosystem that transforms chemistry and physics learning into an immersive digital experience. This project features a Talking Periodic Table integrated with over 120 interactive science simulations and experiments, making it one of the most comprehensive virtual labs available for students.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Html</span>
+            <span class="tech-tag">JavaScipt</span>
+            <span class="tech-tag">Css</span>
+          </div>
+          <div class="project-links">
+            <a href="https://abdoprogrammer2011.github.io/Periodic-Table-Modern/" class="btn-view" target="_blank"><i class="fa-solid fa-link"></i> Live Demo</a>
+            <a href="https://github.com/abdoprogrammer2011/Periodic-Table-Modern" class="btn-view" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card glass reveal">
+        <img class="cert-thumb" src="assests/projects/green-egypt.png" alt="Monitoring drowsiness and dizziness" onerror="this.style.display='none'">
+        <div class="project-body">
+          <div class="project-title">Green Egypt: Strategic Roadmap to Sustainable Future</div>
+          <p class="project-desc">A comprehensive digital platform and strategic roadmap showcasing Egypt's pioneering achievements in green technology and its transition toward a sustainable green economy. The project aligns with Egypt’s Vision 2030 and highlights the integration of environmental goals into the national development framework.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Html</span>
+            <span class="tech-tag">JavaScipt</span>
+            <span class="tech-tag">Css</span>
+          </div>
+          <div class="project-links">
+            <a href="https://abdoprogrammer2011.github.io/green-egypt/" class="btn-view" target="_blank"><i class="fa-solid fa-link"></i> Live Demo</a>
+            <a href="https://github.com/abdoprogrammer2011/green-egypt" class="btn-view" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card glass reveal">
+        <img class="cert-thumb" src="assests/projects/egyption-museam.png" alt="Enjazat Balady: Egyptian National Achievements Portal" onerror="this.style.display='none'">
+        <div class="project-body">
+          <div class="project-title">Enjazat Balady: Egyptian National Achievements Portal</div>
+          <p class="project-desc">A comprehensive digital archive and interactive platform dedicated to documenting and showcasing the monumental national projects and achievements of modern Egypt. The project serves as a centralized hub for information on Egypt’s infrastructure revolution, urban development, and social initiatives.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Html</span>
+            <span class="tech-tag">JavaScipt</span>
+            <span class="tech-tag">Css</span>
+          </div>
+          <div class="project-links">
+            <a href="https://abdoprogrammer2011.github.io/engajat-balady/" class="btn-view" target="_blank"><i class="fa-solid fa-link"></i> Live Demo</a>
+            <a href="https://github.com/abdoprogrammer2011/engajat-balady" class="btn-view" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── TALENTS/SKILLS ────────────────── -->
+<section id="talents">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// مهاراتي و مواهبي</p>
+      <h2 class="section-title">My Talents</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s;">
+      <div class="carousel-container" id="talents-carousel">
+        <div class="carousel-wrapper">
+          <!-- Carousel slides -->
+          <div class="carousel-slide active" data-src="assests/Driving.jpeg" data-title="Driving">
+            <img src="assests/Driving.jpeg" alt="Talent 1">
+          </div>
+          <div class="carousel-slide" data-src="assests/Swimming.jpeg" data-title="Swimming">
+            <img src="assests/Swimming.jpeg" alt="Talent 2">
+          </div>
+          <div class="carousel-slide" data-src="assests/Photography.jpeg" data-title="Photography">
+            <img src="assests/Photography.jpeg" alt="Talent 3">
+          </div>
+          
+
+          <!-- Navigation buttons -->
+          <button class="carousel-nav carousel-prev" onclick="prevTalentsSlide(event)">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-nav carousel-next" onclick="nextTalentsSlide(event)">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <!-- Counter -->
+          <div class="carousel-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">3</span>
+          </div>
+
+          <!-- Dots -->
+          <div class="carousel-dots">
+            <span class="carousel-dot active" onclick="goToTalentsSlide(0, event)"></span>
+            <span class="carousel-dot" onclick="goToTalentsSlide(1, event)"></span>
+            <span class="carousel-dot" onclick="goToTalentsSlide(2, event)"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel title -->
+      <div class="carousel-title" id="carousel-title">Smart Health Monitoring System</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── REVIEWS ────────────────── -->
+<section id="reviews">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// آراء المدرسين</p>
+      <h2 class="section-title">Teacher Reviews</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.30s;">
+      <div class="carousel-container" id="reviews-carousel">
+        <div class="carousel-wrapper">
+          <!-- review slides (images) -->
+          <div class="carousel-slide active" data-title="review 1">
+            <img src="assests/reviews/1 (1).jpeg" alt="review 1" />
+          </div>
+          <div class="carousel-slide" data-title="review 2">
+            <img src="assests/reviews/1 (2).jpeg" alt="review 2" />
+          </div>
+          <div class="carousel-slide" data-title="review 3">
+            <img src="assests/reviews/1 (3).jpeg" alt="review 3" />
+          </div>
+          <div class="carousel-slide active" data-title="review 4">
+            <img src="assests/reviews/1 (4).jpeg" alt="review 4" />
+          </div>
+          <div class="carousel-slide" data-title="review 5">
+            <img src="assests/reviews/1 (5).jpeg" alt="review 5" />
+          </div>
+          <div class="carousel-slide" data-title="review 6">
+            <img src="assests/reviews/1 (6).jpeg" alt="review 6" />
+          </div>
+          <div class="carousel-slide active" data-title="review 7">
+            <img src="assests/reviews/1 (7).jpeg" alt="review 7" />
+          </div>
+          <div class="carousel-slide" data-title="review 8">
+            <img src="assests/reviews/1 (8).jpeg" alt="review 8" />
+          </div>
+          <div class="carousel-slide" data-title="review 9">
+            <img src="assests/reviews/1 (9).jpeg" alt="review 9" />
+          </div>
+          <div class="carousel-slide active" data-title="review 10">
+            <img src="assests/reviews/1 (10).jpeg" alt="review 10" />
+          </div>
+          <div class="carousel-slide" data-title="review 11">
+            <img src="assests/reviews/1 (11).jpeg" alt="review 11" />
+          </div>
+          <div class="carousel-slide" data-title="review 12">
+            <img src="assests/reviews/1 (12).jpeg" alt="review 12" />
+          </div>
+
+          <!-- Navigation buttons -->
+          <button class="carousel-nav carousel-prev" onclick="prevSlide2(event)">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-nav carousel-next" onclick="nextSlide2(event)">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <!-- Counter -->
+          <div class="carousel-counter">
+            <span id="current-slide2">1</span> / <span id="total-slides2">12</span>
+          </div>
+
+          <!-- Dots -->
+          <div class="carousel-dots">
+            <span class="carousel-dot active" onclick="goToSlide2(0, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(1, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(2, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(3, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(4, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(5, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(6, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(7, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(8, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(9, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(10, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide2(11, event)"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- review title beneath carousel -->
+      <div class="carousel-title" id="carousel-title2">آراء المدرسين</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── GALLERY ────────────────── -->
+<section id="gallery">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// تصويري</p>
+      <h2 class="section-title">My Photos</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.30s;">
+      <div class="carousel-container" id="gallery-carousel">
+        <div class="carousel-wrapper">
+          <!-- gallery slides -->
+          <div class="carousel-slide active" data-src="assests/photosessions/1.jpeg">
+            <img src="assests/photosessions/1.jpeg" alt="Photo 1" />
+          </div>
+          <div class="carousel-slide" data-src="assests/photosessions/2.jpeg">
+            <img src="assests/photosessions/2.jpeg" alt="Photo 2" />
+          </div>
+          <div class="carousel-slide" data-src="assests/photosessions/3.jpeg">
+            <img src="assests/photosessions/3.jpeg" alt="Photo 3" />
+          </div>
+          <div class="carousel-slide" data-src="assests/photosessions/4.jpeg">
+            <img src="assests/photosessions/4.jpeg" alt="Photo 4" />
+          </div>
+          <div class="carousel-slide" data-src="assests/photosessions/5.jpeg">
+            <img src="assests/photosessions/5.jpeg" alt="Photo 5" />
+          </div>
+          <div class="carousel-slide" data-src="assests/photosessions/6.jpeg">
+            <img src="assests/photosessions/6.jpeg" alt="Photo 6" />
+          </div>
+          <div class="carousel-slide" data-src="assests/photosessions/7.jpeg">
+            <img src="assests/photosessions/7.jpeg" alt="Photo 7" />
+          </div>
+
+          <!-- Navigation buttons -->
+          <button class="carousel-nav carousel-prev" onclick="prevSlide3(event)">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-nav carousel-next" onclick="nextSlide3(event)">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <!-- Counter -->
+          <div class="carousel-counter">
+            <span id="current-slide3">1</span> / <span id="total-slides3">7</span>
+          </div>
+
+          <!-- Dots -->
+          <div class="carousel-dots">
+            <span class="carousel-dot active" onclick="goToSlide3(0, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide3(1, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide3(2, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide3(3, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide3(4, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide3(5, event)"></span>
+            <span class="carousel-dot" onclick="goToSlide3(6, event)"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- gallery title beneath carousel -->
+      <div class="carousel-title" id="carousel-title3">My Photos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── MORE PHOTOS CAROUSEL ────────────────── -->
+<section id="photos2">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// صور أخرى</p>
+      <h2 class="section-title">Other Photos</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.30s;">
+      <div class="carousel-container" id="photos2-carousel">
+        <div class="carousel-wrapper">
+          <!-- additional slides, replace src/alt as needed -->
+          <div class="carousel-slide active" data-src="assests/another photos/1 (1).jpeg">
+            <img src="assests/another photos/1 (1).jpeg" alt="Photo A" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (2).jpeg">
+            <img src="assests/another photos/1 (2).jpeg" alt="Photo B" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (3).jpeg">
+            <img src="assests/another photos/1 (3).jpeg" alt="Photo C" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (4).jpeg">
+            <img src="assests/another photos/1 (4).jpeg" alt="Photo D" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (5).jpeg">
+            <img src="assests/another photos/1 (5).jpeg" alt="Photo E" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (6).jpeg">
+            <img src="assests/another photos/1 (6).jpeg" alt="Photo F" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (7).jpeg">
+            <img src="assests/another photos/1 (7).jpeg" alt="Photo G" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (8).jpeg">
+            <img src="assests/another photos/1 (8).jpeg" alt="Photo H" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (9).jpeg">
+            <img src="assests/another photos/1 (9).jpeg" alt="Photo I" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (10).jpeg">
+            <img src="assests/another photos/1 (10).jpeg" alt="Photo J" />
+          </div>
+          <div class="carousel-slide" data-src="assests/another photos/1 (11).jpeg">
+            <img src="assests/another photos/1 (11).jpeg" alt="Photo K" />
+          </div>
+          <!-- more slides here -->
+        </div>
+
+        <!-- navigation buttons -->
+        <button class="carousel-nav carousel-prev" onclick="prevPhotos2Slide(event)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="carousel-nav carousel-next" onclick="nextPhotos2Slide(event)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Counter -->
+        <div class="carousel-counter">
+          <span id="photos2-current-slide">1</span> / <span id="photos2-total-slides">11</span>
+        </div>
+
+        <!-- Dots -->
+        <div class="carousel-dots">
+          <span class="carousel-dot active" onclick="goToPhotos2Slide(0, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(1, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(2, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(3, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(4, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(5, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(6, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(7, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(8, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(9, event)"></span>
+          <span class="carousel-dot" onclick="goToPhotos2Slide(10, event)"></span>
+        </div>
+      </div>
+      <!-- title beneath carousel (optional) -->
+      <div class="carousel-title" id="carousel-title4">Other Photos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── ELECTRONICS CAROUSEL ────────────────── -->
+<section id="electronics">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// الكترونياتي</p>
+      <h2 class="section-title">My Electronics</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.30s;">
+      <div class="carousel-container" id="electronics-carousel">
+        <div class="carousel-wrapper">
+          <!-- 11 video slides -->
+          <div class="carousel-slide active" data-type="video" data-src="assests/electronics/video1.mp4">
+            <video src="assests/electronics/video1.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video2.mp4">
+            <video src="assests/electronics/video2.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video3.mp4">
+            <video src="assests/electronics/video3.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video4.mp4">
+            <video src="assests/electronics/video4.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video5.mp4">
+            <video src="assests/electronics/video5.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video6.mp4">
+            <video src="assests/electronics/video6.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video7.mp4">
+            <video src="assests/electronics/video7.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video8.mp4">
+            <video src="assests/electronics/video8.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video9.mp4">
+            <video src="assests/electronics/video9.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video10.mp4">
+            <video src="assests/electronics/video10.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="carousel-slide" data-type="video" data-src="assests/electronics/video11.mp4">
+            <video src="assests/electronics/video11.mp4" muted playsinline></video>
+            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+          </div>
+
+          <!-- 16 image slides -->
+          <div class="carousel-slide" data-src="assests/electronics/img1.jpeg">
+            <img src="assests/electronics/img1.jpeg" alt="Electronics 1" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img2.jpeg">
+            <img src="assests/electronics/img2.jpeg" alt="Electronics 2" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img3.jpeg">
+            <img src="assests/electronics/img3.jpeg" alt="Electronics 3" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img4.jpeg">
+            <img src="assests/electronics/img4.jpeg" alt="Electronics 4" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img5.jpeg">
+            <img src="assests/electronics/img5.jpeg" alt="Electronics 5" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img6.jpeg">
+            <img src="assests/electronics/img6.jpeg" alt="Electronics 6" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img7.jpeg">
+            <img src="assests/electronics/img7.jpeg" alt="Electronics 7" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img8.jpeg">
+            <img src="assests/electronics/img8.jpeg" alt="Electronics 8" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img9.jpeg">
+            <img src="assests/electronics/img9.jpeg" alt="Electronics 9" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img10.jpeg">
+            <img src="assests/electronics/img10.jpeg" alt="Electronics 10" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img11.jpeg">
+            <img src="assests/electronics/img11.jpeg" alt="Electronics 11" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img12.jpeg">
+            <img src="assests/electronics/img12.jpeg" alt="Electronics 12" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img13.jpeg">
+            <img src="assests/electronics/img13.jpeg" alt="Electronics 13" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img14.jpeg">
+            <img src="assests/electronics/img14.jpeg" alt="Electronics 14" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img15.jpeg">
+            <img src="assests/electronics/img15.jpeg" alt="Electronics 15" />
+          </div>
+          <div class="carousel-slide" data-src="assests/electronics/img16.jpeg">
+            <img src="assests/electronics/img16.jpeg" alt="Electronics 16" />
+          </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <button class="carousel-nav carousel-prev" onclick="prevElectronicsSlide(event)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="carousel-nav carousel-next" onclick="nextElectronicsSlide(event)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Counter -->
+        <div class="carousel-counter">
+          <span id="electronics-current-slide">1</span> / <span id="electronics-total-slides">27</span>
+          <span id="electronics-current-type" style="margin-left:8px;font-size:0.85rem;color:rgba(226,232,240,0.85);"></span>
+        </div>
+
+        <!-- Dots -->
+        <div class="carousel-dots">
+          <span class="carousel-dot active" onclick="goToElectronicsSlide(0, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(1, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(2, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(3, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(4, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(5, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(6, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(7, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(8, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(9, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(10, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(11, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(12, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(13, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(14, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(15, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(16, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(17, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(18, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(19, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(20, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(21, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(22, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(23, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(24, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(25, event)"></span>
+          <span class="carousel-dot" onclick="goToElectronicsSlide(26, event)"></span>
+        </div>
+      </div>
+      <!-- optional title under electronics carousel -->
+      <div class="carousel-title" id="carousel-title5">My Electronics</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── PLACES ────────────────── -->
+<section id="places">
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">// اهم اماكن زرتها</p>
+      <h2 class="section-title">Important Visited Places</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="reveal" style="transition-delay:0.30s;">
+      <div class="places-grid">
+        <!-- example cards; replace src/name as needed -->
+        <div class="place-card">
+          <video src="assests/places/The Club Share3 El3oloom.mp4" controls muted loop></video>
+          <div class="place-name">The Club & Share3 El3oloom</div>
+        </div>
+        <div class="place-card">
+          <video src="assests/places/Library of Alexandria in Smart Village.mp4" controls muted loop></video>
+          <div class="place-name">Library of Alexandria in Smart Village</div>
+        </div>
+        <div class="place-card">
+          <video src="assests/places/NBA at Cairo Ict.mp4" controls muted loop></video>
+          <div class="place-name">NBA at Cairo Ict</div>
+        </div>
+        <div class="place-card">
+          <video src="assests/" controls muted loop></video>
+          <div class="place-name"></div>
+        </div>
+        <div class="place-card">
+          <video src="assests/places/Abu Shaar Bro At The Club First Time.mp4" controls muted loop></video>
+          <div class="place-name">Abu Shaar Bro At The Club First Time</div>
+        </div>
+        <div class="place-card">
+          <video src="assests/places/Abu Shaar Bro At The Club Second Time.mp4" controls muted loop></video>
+          <div class="place-name">Abu Shaar Bro At The Club Second Time</div>
+        </div>
+        <div class="place-card">
+          <video src="assests/places/NBA at Cairo Ict Second Time.mp4" controls muted loop></video>
+          <div class="place-name">NBA at Cairo Ict Second Time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────── CONTACT ────────────────── -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <p class="section-label">// تواصل معي</p>
+      <h2 class="section-title">Let's Connect</h2>
+      <div class="section-divider" style="margin:0 auto 0;"></div>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- Info -->
+      <div class="contact-info glass reveal">
+        <h3 style="font-family:'Clash Display',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:10px;">Get In Touch</h3>
+        <p style="color:rgba(226,232,240,0.6);font-size:0.9rem;line-height:1.7;margin-bottom:4px;">
+          I'm always open to new opportunities, collaborations, and exciting projects. Feel free to reach out!
+        </p>
+        <p style="color:rgba(226,232,240,0.5);font-size:0.85rem;line-height:1.65;margin-bottom:20px;">
+          أنا دائماً متحمس لفرص جديدة والتعاون في مشاريع مثيرة. لا تتردد في التواصل!
+        </p>
+
+        <div class="social-links">
+          <a href="mailto:abdelrahman.ellathy2492011@email.com" class="social-link">
+            <div class="social-icon" style="background:rgba(99,102,241,0.2);">
+              <i class="fa-solid fa-envelope" style="color:#818cf8;"></i>
+            </div>
+            <div class="social-text">
+              <strong>Email</strong>
+              <span>abdelrahman.ellathy2492011@email.com</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/abdelrahman-mohamed-ellathy-2a0243359" class="social-link" target="_blank">
+            <div class="social-icon" style="background:rgba(10,102,194,0.2);">
+              <i class="fa-brands fa-linkedin" style="color:#60a5fa;"></i>
+            </div>
+            <div class="social-text">
+              <strong>LinkedIn</strong>
+            </div>
+          </a>
+          <a href="https://github.com/abdoprogrammer2011" class="social-link" target="_blank">
+            <div class="social-icon" style="background:rgba(255,255,255,0.08);">
+              <i class="fa-brands fa-github" style="color:#e2e8f0;"></i>
+            </div>
+            <div class="social-text">
+              <strong>GitHub</strong>
+              <span>github.com/abdoprogrammer2011</span>
+            </div>
+          </a>
+          <a href="https://twitter.com/@abdelra51751911" class="social-link" target="_blank">
+            <div class="social-icon" style="background:rgba(29,161,242,0.15);">
+              <i class="fa-brands fa-x-twitter" style="color:#60a5fa;"></i>
+            </div>
+            <div class="social-text">
+              <strong>X / Twitter</strong>
+              <span>@abdelra51751911</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form glass reveal" style="transition-delay:0.15s;">
+        <h3 style="font-family:'Clash Display',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:24px;">Send a Message</h3>
+
+        <!-- example from user, adapted and styled -->
+        <form id="contactForm" action="https://formspree.io/f/mbdaeyjn" method="POST">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="form-group">
+              <label class="form-label">Your email / بريدك الإلكتروني</label>
+              <input type="email" name="email" class="form-input" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Name / الاسم (optional)</label>
+              <input type="text" name="name" class="form-input" placeholder="Your Name" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subject / الموضوع (optional)</label>
+            <input type="text" name="subject" class="form-input" placeholder="How can I help?" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your message / رسالتك</label>
+            <textarea name="message" class="form-input" placeholder="Your message here... / رسالتك هنا..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" onclick="handleSubmit(this)">
+            <i class="fa-solid fa-paper-plane"></i> Send Message / إرسال
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>Crafted with 💜 by <strong style="color:rgba(226,232,240,0.7);">Abdelrahman Mohamed</strong> · 2026</p>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- Lightbox for talents/skills images -->
+<div id="talent-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9998;overflow:auto;-webkit-overflow-scrolling:touch;backdrop-filter:blur(4px);">
+  <div style="max-width:900px;margin:40px auto;background:rgba(6,10,20,0.98);border-radius:28px;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,0.8), 0 0 40px rgba(99,102,241,0.3);border:1px solid rgba(255,255,255,0.1);">
+    <button id="talent-modal-close" style="position:absolute;right:20px;top:20px;background:rgba(99,102,241,0.8);border:none;color:#fff;font-size:28px;border-radius:50%;width:50px;height:50px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);">×</button>
+    <img id="talent-modal-img" src="" alt="Talent" style="display:block;width:100%;height:auto;max-width:100%;object-fit:contain;max-height:80vh;background:rgba(0,0,0,0.5);"/>
+    <div id="talent-modal-caption" style="display:none;padding:14px 24px;text-align:center;color:#fff;font-size:1.2rem;font-family:'Clash Display',sans-serif;background:rgba(0,0,0,0.6);"></div>
+  </div>
+</div>
+
+<!-- Lightbox for certificate preview (full-screen, scrollable) -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.86);z-index:9999;overflow:auto;-webkit-overflow-scrolling:touch;">
+  <div style="max-width:980px;margin:36px auto;background:rgba(6,10,20,0.95);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+    <button id="lightboxClose" style="position:absolute;right:16px;top:12px;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:22px;border-radius:999px;width:44px;height:44px;cursor:pointer;z-index:3;">×</button>
+    <img id="lightboxImg" src="" alt="Certificate" style="display:block;width:100%;height:auto;max-width:100%;object-fit:contain;"/>
+    <div id="lightboxBody" style="padding:24px;color:#e2e8f0;">
+      <h3 id="lightboxTitle" style="font-family:'Clash Display',sans-serif;font-size:1.4rem;margin-bottom:8px;"></h3>
+      <div id="lightboxDate" style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:0.86rem;margin-bottom:12px;"></div>
+      <div id="lightboxDesc" style="color:rgba(226,232,240,0.78);line-height:1.7;font-size:0.98rem;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Video modal -->
+<div id="video-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center z-50">
+  <div class="relative w-11/12 max-w-3xl">
+    <button id="video-modal-close" class="absolute top-2 right-2 text-white text-3xl leading-none">&times;</button>
+    <video id="video-player" controls autoplay style="width:100%;height:auto;max-height:80vh;display:block;background:#000;">
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  /* ── Typing animation ── */
+  const words = ['Developer 💻', 'Designer 🎨', 'Creator ✨', 'Problem Solver 🧠', 'مبدع 🚀', 'Achiever 🏆'];
+  let wi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typingEl');
+
+  function type() {
+    const word = words[wi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ci + 1);
+      ci++;
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, ci - 1);
+      ci--;
+      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+    }
+    setTimeout(type, deleting ? 50 : 85);
+  }
+  type();
+
+  /* ── Tab switching ── */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.cert-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    if (btn) btn.classList.add('active');
+    
+    // re-trigger card animations
+    document.querySelectorAll('#panel-' + id + ' .cert-card').forEach((c, i) => {
+      c.style.animationName = 'none';
+      c.offsetHeight; // reflow
+      c.style.animationName = '';
+      c.style.animationDelay = (i * 0.07) + 's';
+    });
+  }
+
+  /* ── Mobile nav toggle ── */
+  function toggleNav() {
+    const links = document.querySelector('.nav-links');
+    if (!links) return;
+    links.classList.toggle('open');
+  }
+
+  // close mobile menu when a link is clicked (helps after navigation)
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        const links = document.querySelector('.nav-links');
+        if (links) links.classList.remove('open');
+      });
+    });
+  });
+
+  /* ── Scroll reveal ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // skill bars
+        e.target.querySelectorAll('.skill-bar-fill').forEach(b => {
+          const w = parseFloat(b.dataset.w);
+          b.style.transform = 'scaleX(' + w + ')';
+        });
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // also observe skill bars directly if they're outside reveal
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.transform = 'scaleX(' + e.target.dataset.w + ')';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.skill-bar-fill').forEach(b => barObs.observe(b));
+
+  /* ── Scroll to top button ── */
+  const sBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    sBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  });
+
+  /* ── Contact form ── */
+  function handleSubmit(btn) {
+    // change button state on submit
+    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Message Sent! شكراً';
+    btn.style.background = 'linear-gradient(135deg, #059669, #10b981)';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message / إرسال';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  /* ── Staggered card animation delays for first panel ── */
+  document.querySelectorAll('#panel-international .cert-card, #panel-national .cert-card, #panel-governorate .cert-card, #panel-courses .cert-card, #panel-activities .cert-card').forEach((c, i) => {
+    c.style.animationDelay = (i % 4) * 0.08 + 's';
+  });
+
+  /* ── Lightbox / view certificate handlers ── */
+  function openCert(e) {
+    e.preventDefault();
+    const btn = e.currentTarget || e.target;
+    const card = btn.closest('.cert-card');
+    if (!card) return;
+    const img = card.querySelector('.cert-thumb');
+    const src = img ? img.src : (btn.getAttribute('data-src') || btn.href);
+    if (!src) return;
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbDesc = document.getElementById('lightboxDesc');
+    const lbDate = document.getElementById('lightboxDate');
+    const titleEl = card.querySelector('.cert-title');
+    const descEl = card.querySelector('.cert-desc');
+    const dateEl = card.querySelector('.cert-date');
+    lbImg.src = src;
+    lbTitle.textContent = titleEl ? titleEl.textContent : '';
+    lbDesc.textContent = descEl ? descEl.textContent : '';
+    lbDate.textContent = dateEl ? dateEl.textContent : '';
+    lb.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    // focus for accessibility
+    lb.setAttribute('tabindex','-1'); lb.focus();
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    lb.style.display = 'none';
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox').addEventListener('click', (ev) => {
+    if (ev.target.id === 'lightbox') closeLightbox();
+  });
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') closeLightbox(); });
+
+  /* Only attach openCert to certificate buttons, not project buttons */
+  document.querySelectorAll('.cert-card .btn-view').forEach(btn => {
+    btn.addEventListener('click', openCert);
+  });
+
+  /* ── Video modal handlers ── */
+  function openVideoModal(url) {
+    const modal = document.getElementById('video-modal');
+    const player = document.getElementById('video-player');
+    if (!player) return;
+    player.pause();
+    // set src directly on video element (and source child if exists)
+    player.muted = false;
+    player.src = url;
+    const srcEl = player.querySelector('source');
+    if (srcEl) srcEl.src = url;
+    player.load();
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    const player = document.getElementById('video-player');
+    modal.classList.add('hidden');
+    if (player) {
+      // stop playback, mute and reset position
+      try { player.pause(); } catch(e){}
+      try { player.currentTime = 0; } catch(e){}
+      try { player.muted = true; } catch(e){}
+      // remove source to fully stop resource usage
+      player.removeAttribute('src');
+      const srcEl = player.querySelector('source');
+      if (srcEl) srcEl.removeAttribute('src');
+      try { player.load(); } catch(e){}
+    }
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.video-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const url = card.dataset.video;
+      if (url) openVideoModal(url);
+    });
+  });
+  document.getElementById('video-modal-close').addEventListener('click', closeVideoModal);
+  document.getElementById('video-modal').addEventListener('click', e => {
+    if (e.target.id === 'video-modal') closeVideoModal();
+  });
+  document.addEventListener('keydown', ev => {
+    if (ev.key === 'Escape') closeVideoModal();
+  });
+
+  /* ── Hide loading screen when page loads ── */
+  if (document.readyState === 'loading') {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+          loadingScreen.classList.add('hidden');
+        }
+      }, 6000); // 6 seconds
+    });
+  } else {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+      }, 6000);
+    }
+  }
+
+  /* ── Talents Carousel Functions ── */
+  let talentsCurrent = 0;
+  const talentsTotal = 3;
+  let talentsAutoplayTimeout;
+  let talentsHovered = false;
+
+  /* ── Takrimaty Carousel Functions ───────────────── */
+  let takrimatyCurrent = 0;
+  const takrimatyTotal = 12; // update if you add more slides
+  let takrimatyAutoplayTimeout;
+  let takrimatyHovered = false;
+
+  function updateTakrimatyCarousel() {
+    const container = document.getElementById('takrimaty-carousel');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === takrimatyCurrent) {
+        slide.classList.add('active');
+        // no external title element for honors/takrimaty
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === takrimatyCurrent) dot.classList.add('active');
+    });
+
+    const counter = document.getElementById('takrimaty-current-slide');
+    const totalEl = document.getElementById('takrimaty-total-slides');
+    if (counter) counter.textContent = takrimatyCurrent + 1;
+    if (totalEl) totalEl.textContent = takrimatyTotal;
+    restartTakrimatyAutoplay();
+  }
+
+  function nextTakrimatySlide(e) {
+    if (e) e.stopPropagation();
+    takrimatyCurrent = (takrimatyCurrent + 1) % takrimatyTotal;
+    updateTakrimatyCarousel();
+  }
+
+  function prevTakrimatySlide(e) {
+    if (e) e.stopPropagation();
+    takrimatyCurrent = (takrimatyCurrent - 1 + takrimatyTotal) % takrimatyTotal;
+    updateTakrimatyCarousel();
+  }
+
+  function goToTakrimatySlide(n, e) {
+    if (e) e.stopPropagation();
+    takrimatyCurrent = n;
+    updateTakrimatyCarousel();
+  }
+
+  function restartTakrimatyAutoplay() {
+    clearTimeout(takrimatyAutoplayTimeout);
+    if (!takrimatyHovered) {
+      takrimatyAutoplayTimeout = setTimeout(() => {
+        takrimatyCurrent = (takrimatyCurrent + 1) % takrimatyTotal;
+        updateTakrimatyCarousel();
+      }, 4000);
+    }
+  }
+
+  // takrimaty carousel hover events
+  const takrimatyContainer = document.getElementById('takrimaty-carousel');
+  if (takrimatyContainer) {
+    takrimatyContainer.addEventListener('mouseenter', () => {
+      takrimatyHovered = true;
+      clearTimeout(takrimatyAutoplayTimeout);
+    });
+
+    takrimatyContainer.addEventListener('mouseleave', () => {
+      takrimatyHovered = false;
+      restartTakrimatyAutoplay();
+    });
+  }
+
+  function updateTalentsCarousel() {
+    const container = document.getElementById('talents-carousel');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+    const titleEl = document.getElementById('carousel-title');
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === talentsCurrent) {
+        slide.classList.add('active');
+        // Update title
+        if (titleEl) {
+          const title = slide.getAttribute('data-title');
+          titleEl.textContent = title || 'Talent ' + (i + 1);
+        }
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === talentsCurrent) dot.classList.add('active');
+    });
+
+    const counter = document.getElementById('current-slide');
+    if (counter) counter.textContent = talentsCurrent + 1;
+    restartTalentsAutoplay();
+  }
+
+  function nextTalentsSlide(e) {
+    if (e) e.stopPropagation();
+    talentsCurrent = (talentsCurrent + 1) % talentsTotal;
+    updateTalentsCarousel();
+  }
+
+  function prevTalentsSlide(e) {
+    if (e) e.stopPropagation();
+    talentsCurrent = (talentsCurrent - 1 + talentsTotal) % talentsTotal;
+    updateTalentsCarousel();
+  }
+
+  function goToTalentsSlide(n, e) {
+    if (e) e.stopPropagation();
+    talentsCurrent = n;
+    updateTalentsCarousel();
+  }
+
+  function restartTalentsAutoplay() {
+    clearTimeout(talentsAutoplayTimeout);
+    if (!talentsHovered) {
+      talentsAutoplayTimeout = setTimeout(() => {
+        talentsCurrent = (talentsCurrent + 1) % talentsTotal;
+        updateTalentsCarousel();
+      }, 4000);
+    }
+  }
+
+  // Talents carousel hover events
+  const talentsContainer = document.getElementById('talents-carousel');
+  if (talentsContainer) {
+    talentsContainer.addEventListener('mouseenter', () => {
+      talentsHovered = true;
+      clearTimeout(talentsAutoplayTimeout);
+    });
+
+    talentsContainer.addEventListener('mouseleave', () => {
+      talentsHovered = false;
+      restartTalentsAutoplay();
+    });
+  }
+
+  /* ── Reviews Carousel Functions ── */
+  let reviewsCurrent = 0;
+  const reviewsTotal = 12;
+  let reviewsAutoplay;
+  let reviewsHovered = false;
+
+  function updateReviewsCarousel() {
+    const container = document.getElementById('reviews-carousel');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+    const titleEl = document.getElementById('carousel-title2');
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === reviewsCurrent) {
+        slide.classList.add('active');
+        if (titleEl) {
+          const ttl = slide.getAttribute('data-title');
+          titleEl.textContent = ttl || 'Teacher Review';
+        }
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === reviewsCurrent) dot.classList.add('active');
+    });
+
+    const counter = document.getElementById('current-slide2');
+    if (counter) counter.textContent = reviewsCurrent + 1;
+    restartReviewsAutoplay();
+  }
+
+  function nextSlide2(e) {
+    if (e) e.stopPropagation();
+    reviewsCurrent = (reviewsCurrent + 1) % reviewsTotal;
+    updateReviewsCarousel();
+  }
+
+  function prevSlide2(e) {
+    if (e) e.stopPropagation();
+    reviewsCurrent = (reviewsCurrent - 1 + reviewsTotal) % reviewsTotal;
+    updateReviewsCarousel();
+  }
+
+  function goToSlide2(n, e) {
+    if (e) e.stopPropagation();
+    reviewsCurrent = n;
+    updateReviewsCarousel();
+  }
+
+  function restartReviewsAutoplay() {
+    clearTimeout(reviewsAutoplay);
+    if (!reviewsHovered) {
+      reviewsAutoplay = setTimeout(() => {
+        reviewsCurrent = (reviewsCurrent + 1) % reviewsTotal;
+        updateReviewsCarousel();
+      }, 4000);
+    }
+  }
+
+  const reviewsContainer = document.getElementById('reviews-carousel');
+  if (reviewsContainer) {
+    reviewsContainer.addEventListener('mouseenter', () => {
+      reviewsHovered = true;
+      clearTimeout(reviewsAutoplay);
+    });
+    reviewsContainer.addEventListener('mouseleave', () => {
+      reviewsHovered = false;
+      restartReviewsAutoplay();
+    });
+  }
+
+  // Open talent modal
+  function openTalentModal(slideEl) {
+    // debug logging to trace which element and src are used
+    console.log('openTalentModal called for', slideEl);
+    const modal = document.getElementById('talent-modal');
+    const modalImg = document.getElementById('talent-modal-img');
+    const captionEl = document.getElementById('talent-modal-caption');
+    let src = slideEl.getAttribute('data-src');
+    let alt = '';
+    let title = slideEl.getAttribute('data-title') || '';
+    const innerImg = slideEl.querySelector('img');
+    if (innerImg) {
+      alt = innerImg.alt || '';
+      if (!src) src = innerImg.src;
+      if (!title) title = innerImg.alt || '';
+    }
+    console.log('modal will show src=', src, 'title=', title);
+    
+    if (src && modalImg && modal) {
+      modalImg.src = src;
+      if (alt) modalImg.alt = alt;
+      if (captionEl) {
+        captionEl.textContent = title || alt || '';
+        captionEl.style.display = (title || alt) ? 'block' : 'none';
+      }
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  // Add click listeners only to talents carousel slides
+  setTimeout(() => {
+    const container = document.getElementById('talents-carousel');
+    if (container) {
+      const slides = container.querySelectorAll('.carousel-slide');
+      console.log('Talents slides found:', slides.length);
+      slides.forEach((slide, index) => {
+        slide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const src = slide.getAttribute('data-src');
+          console.log('Clicked talents slide', index, 'with src:', src);
+          openTalentModal(slide);
+        });
+        const img = slide.querySelector('img');
+        if (img) {
+          img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const src = slide.getAttribute('data-src');
+            console.log('Clicked talents img', index, 'with src:', src);
+            openTalentModal(slide);
+          });
+        }
+      });
+    }
+
+    // also add to reviews slides
+    const revContainer = document.getElementById('reviews-carousel');
+    if (revContainer) {
+      const rslides = revContainer.querySelectorAll('.carousel-slide');
+      console.log('Review slides found:', rslides.length);
+      rslides.forEach((slide, idx) => {
+        slide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openTalentModal(slide);
+        });
+      });
+    }
+
+    // also add to takrimaty slides
+    const takContainer = document.getElementById('takrimaty-carousel');
+    if (takContainer) {
+      const tslides = takContainer.querySelectorAll('.carousel-slide');
+      console.log('Takrimaty slides found:', tslides.length);
+      tslides.forEach((slide, idx) => {
+        // use currentTarget to be sure we reference the right slide when event fires
+        slide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openTalentModal(e.currentTarget);
+        });
+        // no separate img handler (slide click is sufficient)
+      });
+    }
+  }, 100);
+
+  /* ── Gallery Carousel Functions ── */
+  let galleryCurrent = 0;
+  const galleryTotal = 7;
+  let galleryAutoplay;
+  let galleryHovered = false;
+
+  function updateGalleryCarousel() {
+    const container = document.getElementById('gallery-carousel');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+    const titleEl = document.getElementById('carousel-title3');
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === galleryCurrent) {
+        slide.classList.add('active');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === galleryCurrent) dot.classList.add('active');
+    });
+
+    const counter = document.getElementById('current-slide3');
+    if (counter) counter.textContent = galleryCurrent + 1;
+    const totalEl = document.getElementById('total-slides3');
+    if (totalEl) totalEl.textContent = galleryTotal;
+    restartGalleryAutoplay();
+  }
+
+  function nextSlide3(e) {
+    if (e) e.stopPropagation();
+    galleryCurrent = (galleryCurrent + 1) % galleryTotal;
+    updateGalleryCarousel();
+  }
+
+  function prevSlide3(e) {
+    if (e) e.stopPropagation();
+    galleryCurrent = (galleryCurrent - 1 + galleryTotal) % galleryTotal;
+    updateGalleryCarousel();
+  }
+
+  function goToSlide3(n, e) {
+    if (e) e.stopPropagation();
+    galleryCurrent = n;
+    updateGalleryCarousel();
+  }
+
+  function restartGalleryAutoplay() {
+    clearTimeout(galleryAutoplay);
+    if (!galleryHovered) {
+      galleryAutoplay = setTimeout(() => {
+        galleryCurrent = (galleryCurrent + 1) % galleryTotal;
+        updateGalleryCarousel();
+      }, 4000);
+    }
+  }
+
+  const galleryContainer = document.getElementById('gallery-carousel');
+  if (galleryContainer) {
+    galleryContainer.addEventListener('mouseenter', () => {
+      galleryHovered = true;
+      clearTimeout(galleryAutoplay);
+    });
+
+    galleryContainer.addEventListener('mouseleave', () => {
+      galleryHovered = false;
+      restartGalleryAutoplay();
+    });
+  }
+
+  /* ── More Photos Carousel Functions ── */
+  let photos2Current = 0;
+  const photos2Total = 11; // update when you add/remove slides
+  let photos2Autoplay;
+  let photos2Hovered = false;
+
+  function updatePhotos2Carousel() {
+    const container = document.getElementById('photos2-carousel');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+    const titleEl = document.getElementById('carousel-title4');
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === photos2Current) {
+        slide.classList.add('active');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === photos2Current) dot.classList.add('active');
+    });
+
+    const counter = document.getElementById('photos2-current-slide');
+    if (counter) counter.textContent = photos2Current + 1;
+    const totalEl = document.getElementById('photos2-total-slides');
+    if (totalEl) totalEl.textContent = photos2Total;
+    restartPhotos2Autoplay();
+  }
+
+  /* ── Electronics Carousel Functions ── */
+  let electronicsCurrent = 0;
+  const electronicsTotal = 27; // 11 videos + 16 images
+  let electronicsAutoplay;
+  let electronicsHovered = false;
+
+  function updateElectronicsCarousel() {
+    const container = document.getElementById('electronics-carousel');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+    const titleEl = document.getElementById('carousel-title5');
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === electronicsCurrent) {
+        slide.classList.add('active');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === electronicsCurrent) dot.classList.add('active');
+    });
+
+    const counter = document.getElementById('electronics-current-slide');
+    if (counter) counter.textContent = electronicsCurrent + 1;
+    const totalEl = document.getElementById('electronics-total-slides');
+    if (totalEl) totalEl.textContent = electronicsTotal;
+    const typeEl = document.getElementById('electronics-current-type');
+    if (typeEl) {
+      const currentSlide = slides[electronicsCurrent];
+      if (currentSlide) {
+        const typ = currentSlide.getAttribute('data-type');
+        typeEl.textContent = typ === 'video' ? 'Video' : 'Photo';
+      } else {
+        typeEl.textContent = '';
+      }
+    }
+    restartElectronicsAutoplay();
+  }
+
+  function nextElectronicsSlide(e) {
+    if (e) e.stopPropagation();
+    electronicsCurrent = (electronicsCurrent + 1) % electronicsTotal;
+    updateElectronicsCarousel();
+  }
+
+  function prevElectronicsSlide(e) {
+    if (e) e.stopPropagation();
+    electronicsCurrent = (electronicsCurrent - 1 + electronicsTotal) % electronicsTotal;
+    updateElectronicsCarousel();
+  }
+
+  function goToElectronicsSlide(n, e) {
+    if (e) e.stopPropagation();
+    electronicsCurrent = n;
+    updateElectronicsCarousel();
+  }
+
+  function restartElectronicsAutoplay() {
+    clearTimeout(electronicsAutoplay);
+    if (!electronicsHovered) {
+      electronicsAutoplay = setTimeout(() => {
+        electronicsCurrent = (electronicsCurrent + 1) % electronicsTotal;
+        updateElectronicsCarousel();
+      }, 4000);
+    }
+  }
+
+  const electronicsContainer = document.getElementById('electronics-carousel');
+  if (electronicsContainer) {
+    electronicsContainer.addEventListener('mouseenter', () => {
+      electronicsHovered = true;
+      clearTimeout(electronicsAutoplay);
+    });
+
+    electronicsContainer.addEventListener('mouseleave', () => {
+      electronicsHovered = false;
+      restartElectronicsAutoplay();
+    });
+  }
+
+  function nextPhotos2Slide(e) {
+    if (e) e.stopPropagation();
+    photos2Current = (photos2Current + 1) % photos2Total;
+    updatePhotos2Carousel();
+  }
+
+  function prevPhotos2Slide(e) {
+    if (e) e.stopPropagation();
+    photos2Current = (photos2Current - 1 + photos2Total) % photos2Total;
+    updatePhotos2Carousel();
+  }
+
+  function goToPhotos2Slide(n, e) {
+    if (e) e.stopPropagation();
+    photos2Current = n;
+    updatePhotos2Carousel();
+  }
+
+  function restartPhotos2Autoplay() {
+    clearTimeout(photos2Autoplay);
+    if (!photos2Hovered) {
+      photos2Autoplay = setTimeout(() => {
+        photos2Current = (photos2Current + 1) % photos2Total;
+        updatePhotos2Carousel();
+      }, 4000);
+    }
+  }
+
+  const photos2Container = document.getElementById('photos2-carousel');
+  if (photos2Container) {
+    photos2Container.addEventListener('mouseenter', () => {
+      photos2Hovered = true;
+      clearTimeout(photos2Autoplay);
+    });
+
+    photos2Container.addEventListener('mouseleave', () => {
+      photos2Hovered = false;
+      restartPhotos2Autoplay();
+    });
+  }
+
+  // Add click listeners to gallery slides (and more-photos)
+  setTimeout(() => {
+    const galContainer = document.getElementById('gallery-carousel');
+    if (galContainer) {
+      const gslides = galContainer.querySelectorAll('.carousel-slide');
+      console.log('Gallery slides found:', gslides.length);
+      gslides.forEach((slide, idx) => {
+        slide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openTalentModal(slide);
+        });
+      });
+    }
+
+    const photos2Container = document.getElementById('photos2-carousel');
+    if (photos2Container) {
+      const pslides = photos2Container.querySelectorAll('.carousel-slide');
+      console.log('Photos2 slides found:', pslides.length);
+      pslides.forEach((slide) => {
+        slide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openTalentModal(slide);
+        });
+      });
+    }
+
+    // electronics slides (videos/images)
+    const elecContainer = document.getElementById('electronics-carousel');
+    if (elecContainer) {
+      const eslides = elecContainer.querySelectorAll('.carousel-slide');
+      console.log('Electronics slides found:', eslides.length);
+      eslides.forEach((slide) => {
+        slide.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const type = slide.getAttribute('data-type');
+          if (type === 'video') {
+            // open in video modal
+            const src = slide.getAttribute('data-src') || slide.querySelector('video')?.src;
+            if (src) openVideoModal(src);
+          } else {
+            openTalentModal(slide);
+          }
+        });
+      });
+    }
+  }, 100);
+
+  // Close talent modal
+  function closeTalentModal() {
+    const modal = document.getElementById('talent-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('talent-modal-close').addEventListener('click', closeTalentModal);
+  document.getElementById('talent-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'talent-modal') closeTalentModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeTalentModal();
+      closeVideoModal();
+    }
+  });
+
+  // Initialize carousels
+  updateTalentsCarousel();
+  updateTakrimatyCarousel();
+  updateReviewsCarousel();
+  updateGalleryCarousel();
+  updatePhotos2Carousel();
+  updateElectronicsCarousel();
+</script>
+
+</body>
+</html>
