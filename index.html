@@ -3022,23 +3022,22 @@ The course provided a deep dive into the foundational elements of Artificial Int
   });
 
   /* ── Hide loading screen when page loads ── */
-  if (document.readyState === 'loading') {
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-          loadingScreen.classList.add('hidden');
-        }
-      }, 6000); // 6 seconds
-    });
-  } else {
+  function hideLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-      }, 6000);
+    if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+      loadingScreen.classList.add('hidden');
     }
   }
+
+  // Hide as soon as the page fully loads
+  if (document.readyState === 'complete') {
+    hideLoadingScreen();
+  } else {
+    window.addEventListener('load', hideLoadingScreen);
+  }
+
+  // Fallback: hide after 10 seconds max (in case load event never fires)
+  setTimeout(hideLoadingScreen, 10000);
 
   /* ── Talents Carousel Functions ── */
   let talentsCurrent = 0;
