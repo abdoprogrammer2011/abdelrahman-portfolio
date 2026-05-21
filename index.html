@@ -13,12 +13,15 @@
 
   <style>
     :root {
-      --glass-bg: rgba(255,255,255,0.12);
-      --glass-border: rgba(255,255,255,0.28);
-      --glass-shadow: 0 8px 32px rgba(80,120,255,0.18), 0 1.5px 8px rgba(255,255,255,0.10);
-      --accent: #60a5fa;
-      --accent2: #a78bfa;
-      --accent3: #34d399;
+      --glass-bg: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.15);
+      --glass-shadow: 0 8px 32px rgba(120,100,255,0.15), 0 1.5px 8px rgba(255,255,255,0.08);
+      --accent: #00d4ff;
+      --accent2: #ff006e;
+      --accent3: #00f5ff;
+      --grad1: linear-gradient(135deg, #00d4ff, #0099ff);
+      --grad2: linear-gradient(135deg, #ff006e, #ff4d8f);
+      --grad3: linear-gradient(135deg, #00f5ff, #00d4ff);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +30,7 @@
 
     body {
       font-family: 'Syne', sans-serif;
-      background: #06091a;
+      background: linear-gradient(135deg, #0a0e27 0%, #12111f 50%, #1a0f2e 100%);
       color: #e2e8f0;
       overflow-x: hidden;
       min-height: 100vh;
@@ -38,55 +41,26 @@
       position: fixed;
       inset: 0;
       z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(99,102,241,0.35) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(139,92,246,0.30) 0%, transparent 55%),
-        radial-gradient(ellipse 70% 60% at 50% 80%, rgba(59,130,246,0.28) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 40% at 10% 70%, rgba(16,185,129,0.18) 0%, transparent 50%),
-        radial-gradient(ellipse 60% 50% at 90% 70%, rgba(236,72,153,0.18) 0%, transparent 55%),
-        #06091a;
-      animation: meshMove 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes meshMove {
-      0%   { filter: hue-rotate(0deg) brightness(1); }
-      50%  { filter: hue-rotate(15deg) brightness(1.08); }
-      100% { filter: hue-rotate(-10deg) brightness(1.04); }
+      background: linear-gradient(135deg, #0a0e27 0%, #0f0f23 50%, #12111f 100%);
+      will-change: none;
     }
 
     /* floating orbs */
     .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.25;
-      animation: floatOrb linear infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes floatOrb {
-      0%   { transform: translateY(0) translateX(0) scale(1); }
-      33%  { transform: translateY(-60px) translateX(40px) scale(1.1); }
-      66%  { transform: translateY(40px) translateX(-30px) scale(0.95); }
-      100% { transform: translateY(0) translateX(0) scale(1); }
+      display: none;
     }
 
     /* ── Glassmorphism ── */
     .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(22px) saturate(1.6);
-      -webkit-backdrop-filter: blur(22px) saturate(1.6);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .glass-dark {
-      background: rgba(10,15,40,0.45);
-      backdrop-filter: blur(22px) saturate(1.4);
-      -webkit-backdrop-filter: blur(22px) saturate(1.4);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+      background: rgba(10,14,39,0.6);
+      border: 1px solid rgba(0,212,255,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     /* ── Navbar ── */
@@ -111,7 +85,7 @@
       font-family: 'Clash Display', sans-serif;
       font-size: 1.3rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      background: linear-gradient(135deg, #00d4ff, #ff006e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -123,11 +97,29 @@
       font-size: 0.88rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      transition: color 0.2s;
+      transition: all 0.3s ease;
       margin-left: 28px;
+      position: relative;
     }
 
-    .nav-links a:hover { color: #60a5fa; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00d4ff, #ff006e);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent3);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
     /* Mobile tweaks for the floating navbar */
     @media (max-width: 640px) {
@@ -145,9 +137,7 @@
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--glass-bg);
-        backdrop-filter: blur(22px) saturate(1.6);
-        -webkit-backdrop-filter: blur(22px) saturate(1.6);
+        background: rgba(10,14,39,0.95);
         flex-direction: column;
         display: none;
         padding: 12px 0;
@@ -198,24 +188,26 @@
       height: 160px;
       border-radius: 50%;
       margin: 0 auto 40px;
-      background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(139,92,246,0.4));
-      border: 2px solid rgba(255,255,255,0.25);
+      background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(255,0,110,0.2));
+      border: 2px solid var(--accent3);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 3.2rem;
-      color: rgba(255,255,255,0.7);
-      box-shadow: 0 0 60px rgba(99,102,241,0.4), 0 0 20px rgba(139,92,246,0.3);
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(0,212,255,0.2);
       position: relative;
       overflow: hidden;
+      will-change: none;
     }
 
     .hero-avatar::after {
       content: '';
       position: absolute;
       inset: -50%;
-      background: conic-gradient(transparent 270deg, rgba(255,255,255,0.25) 360deg);
+      background: conic-gradient(transparent 270deg, var(--accent3) 360deg);
       animation: spinBorder 4s linear infinite;
+      will-change: transform;
     }
 
     @keyframes spinBorder {
@@ -227,13 +219,13 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.78rem;
       color: var(--accent3);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 16px;
-      padding: 6px 16px;
+      padding: 8px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(52,211,153,0.3);
-      background: rgba(52,211,153,0.08);
+      border: 1.5px solid var(--accent3);
+      background: rgba(0,245,255,0.05);
     }
 
     .hero-name {
@@ -242,7 +234,7 @@
       font-weight: 700;
       line-height: 1.05;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #fff 30%, #a78bfa 70%, #60a5fa);
+      background: linear-gradient(135deg, #00d4ff 0%, #00f5ff 50%, #00d4ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -261,21 +253,23 @@
     }
 
     .typing-text {
-      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      background: linear-gradient(90deg, #00d4ff, #ff006e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       font-family: 'Clash Display', sans-serif;
+      font-weight: 700;
     }
 
     .cursor {
       display: inline-block;
       width: 3px;
       height: 1.2em;
-      background: #a78bfa;
+      background: linear-gradient(180deg, #00d4ff, #ff006e);
       border-radius: 2px;
-      animation: blink 1s step-end infinite;
+      animation: blink 0.8s step-end infinite;
       vertical-align: middle;
+      box-shadow: 0 0 10px #00d4ff;
     }
 
     @keyframes blink { 50% { opacity: 0; } }
@@ -283,82 +277,89 @@
     .hero-desc {
       max-width: 560px;
       margin: 0 auto 40px;
-      color: rgba(226,232,240,0.6);
+      color: rgba(226,232,240,0.75);
       font-size: 1.05rem;
-      line-height: 1.75;
+      line-height: 1.8;
+      font-weight: 500;
     }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 32px;
+      padding: 15px 36px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #fff;
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      color: #0a0e27;
       font-weight: 700;
       font-size: 0.95rem;
       text-decoration: none;
-      letter-spacing: 0.03em;
-      box-shadow: 0 4px 24px rgba(99,102,241,0.45);
-      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 12px rgba(0,212,255,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       border: none;
+      will-change: transform;
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 8px 32px rgba(99,102,241,0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,212,255,0.25);
     }
 
     .btn-outline {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 13px 30px;
+      padding: 14px 32px;
       border-radius: 999px;
       background: transparent;
-      color: #e2e8f0;
+      color: var(--accent3);
       font-weight: 700;
       font-size: 0.95rem;
       text-decoration: none;
-      letter-spacing: 0.03em;
-      border: 1px solid rgba(255,255,255,0.22);
-      transition: transform 0.2s, background 0.2s;
+      letter-spacing: 0.04em;
+      border: 1.5px solid var(--accent3);
+      transition: transform 0.3s ease;
       cursor: pointer;
+      will-change: transform;
     }
 
     .btn-outline:hover {
-      transform: translateY(-3px);
-      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
     }
 
     /* ── Section titles ── */
     .section-label {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.75rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 12px;
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 20px;
     }
 
     .section-title {
       font-family: 'Clash Display', sans-serif;
       font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 700;
-      background: linear-gradient(135deg, #fff, #a78bfa);
+      background: linear-gradient(135deg, #00d4ff 0%, #00f5ff 50%, #ff006e 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 16px;
+      letter-spacing: -0.02em;
     }
 
     .section-divider {
-      width: 60px;
+      width: 80px;
       height: 3px;
       border-radius: 999px;
-      background: linear-gradient(90deg, #6366f1, #a78bfa);
+      background: linear-gradient(90deg, #00d4ff, #ff006e, #00f5ff);
       margin-bottom: 56px;
     }
 
@@ -450,13 +451,12 @@
       font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.25s;
-      backdrop-filter: blur(10px);
     }
 
     .tab-btn:hover {
-      background: rgba(99,102,241,0.2);
+      background: rgba(0,212,255,0.15);
       color: #fff;
-      border-color: rgba(99,102,241,0.4);
+      border-color: rgba(0,212,255,0.4);
     }
 
     .tab-btn.active {
@@ -540,18 +540,7 @@
       font-size: 1.05rem;
       font-weight: 600;
       color: #f1f5f9;
-    }
-
-    .cert-desc {
-      display: none !important;
-      /* description removed as requested */
-      font-size: 0.85rem;
-      color: rgba(226,232,240,0.6);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .cert-date {
+    }.cert-date {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.75rem;
       color: var(--accent);
@@ -591,14 +580,18 @@
 
     .project-card {
       border-radius: 24px;
-      overflow: hidden;
-      transition: transform 0.35s, box-shadow 0.35s;
+      overflow: visible;
+      transition: transform 0.3s ease;
       position: relative;
+      will-change: transform;
+    }
+
+    .project-card.glass-lens-effect {
+      overflow: hidden;
     }
 
     .project-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 24px 60px rgba(80,120,255,0.32);
+      transform: translateY(-4px);
     }
 
     .project-thumb {
@@ -608,9 +601,13 @@
       align-items: center;
       justify-content: center;
       font-size: 3rem;
+      background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(255,0,110,0.05));
     }
 
-    .project-body { padding: 24px; }
+    .project-body { 
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+    }
 
     .project-title {
       font-family: 'Clash Display', sans-serif;
@@ -618,31 +615,63 @@
       font-weight: 700;
       margin-bottom: 8px;
       color: #f1f5f9;
+      letter-spacing: -0.01em;
     }
 
     .project-desc {
       font-size: 0.88rem;
-      color: rgba(226,232,240,0.6);
+      color: rgba(226,232,240,0.65);
       line-height: 1.65;
       margin-bottom: 16px;
+      font-weight: 500;
     }
 
-    .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .tech-tag {
-      padding: 4px 12px;
+      padding: 6px 16px;
       border-radius: 999px;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.72rem;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: rgba(226,232,240,0.7);
+      border: 1px solid rgba(0,212,255,0.2);
+      background: rgba(0,212,255,0.06);
+      color: var(--accent3);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+    }
+
+    .tech-tag:hover {
+      background: rgba(0,212,255,0.1);
+      border-color: var(--accent3);
     }
 
     .project-links {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       margin-top: 16px;
+    }
+
+    .project-links a {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,212,255,0.2);
+      background: rgba(0,212,255,0.05);
+      color: var(--accent3);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .project-links a:hover {
+      background: rgba(0,212,255,0.12);
+      border-color: var(--accent3);
+      transform: translateY(-1px);
     }
 
     /* ── Contact ── */
@@ -659,36 +688,46 @@
       .contact-grid { grid-template-columns: 1fr; }
     }
 
-    .contact-info { padding: 40px; border-radius: 28px; }
+    .contact-info { 
+      padding: 40px; 
+      border-radius: 28px; 
+      background: rgba(10,14,39,0.5);
+      border: 1px solid rgba(0,212,255,0.05);
+    }
 
-    .social-links { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+    .social-links { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
 
     .social-link {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 14px 20px;
+      padding: 16px 22px;
       border-radius: 16px;
       text-decoration: none;
-      transition: all 0.25s;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.04);
+      transition: transform 0.3s ease;
+      border: 1.5px solid rgba(0,212,255,0.15);
+      background: rgba(0,212,255,0.04);
+      position: relative;
+      will-change: transform;
     }
 
     .social-link:hover {
-      background: rgba(99,102,241,0.15);
-      border-color: rgba(99,102,241,0.3);
-      transform: translateX(6px);
+      border-color: var(--accent3);
+      transform: translateX(4px);
     }
 
     .social-icon {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      background: rgba(0,212,255,0.1) !important;
+      border: 1px solid rgba(0,212,255,0.2);
+      position: relative;
+      z-index: 1;
     }
 
     .social-text strong {
@@ -696,15 +735,24 @@
       font-size: 0.88rem;
       font-weight: 700;
       color: #f1f5f9;
+      position: relative;
+      z-index: 1;
     }
 
     .social-text span {
       font-size: 0.78rem;
-      color: rgba(226,232,240,0.5);
+      color: rgba(226,232,240,0.6);
+      position: relative;
+      z-index: 1;
     }
 
     /* Contact form */
-    .contact-form { padding: 40px; border-radius: 28px; }
+    .contact-form { 
+      padding: 40px; 
+      border-radius: 28px;
+      background: rgba(10,14,39,0.5);
+      border: 1px solid rgba(0,212,255,0.05);
+    }
 
     .form-group { margin-bottom: 20px; }
 
@@ -721,21 +769,21 @@
       width: 100%;
       padding: 14px 18px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(0,212,255,0.2);
+      background: rgba(0,212,255,0.05);
       color: #e2e8f0;
       font-family: 'Syne', sans-serif;
       font-size: 0.92rem;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
     }
 
-    .form-input::placeholder { color: rgba(226,232,240,0.3); }
+    .form-input::placeholder { color: rgba(226,232,240,0.4); }
 
     .form-input:focus {
-      border-color: rgba(99,102,241,0.5);
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+      border-color: var(--accent3);
+      background: rgba(0,212,255,0.08);
+      box-shadow: 0 0 10px rgba(0,212,255,0.1);
     }
 
     textarea.form-input { resize: vertical; min-height: 130px; }
@@ -757,9 +805,9 @@
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 28px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      color: rgba(226,232,240,0.35);
+      padding: 40px 28px;
+      border-top: 1px solid rgba(0,212,255,0.05);
+      color: rgba(226,232,240,0.5);
       font-size: 0.82rem;
     }
 
@@ -769,33 +817,30 @@
       bottom: 32px;
       right: 32px;
       z-index: 200;
-      width: 46px;
-      height: 46px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(99,102,241,0.3);
-      backdrop-filter: blur(12px);
-      color: #fff;
-      font-size: 1rem;
+      border: 1.5px solid var(--accent3);
+      background: rgba(0,212,255,0.1);
+      color: var(--accent3);
+      font-size: 1.1rem;
       cursor: pointer;
       display: none;
       align-items: center;
       justify-content: center;
-      transition: all 0.25s;
+      transition: transform 0.3s ease;
+      will-change: transform;
     }
 
     #scrollTop:hover {
-      background: rgba(99,102,241,0.6);
-      transform: translateY(-4px);
+      transform: translateY(-2px);
     }
 
     #loadingScreen {
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: linear-gradient(135deg, rgba(10,14,39,0.85), rgba(18,17,31,0.85));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -805,6 +850,21 @@
     #loadingScreen.hidden {
       opacity: 0;
       pointer-events: none;
+    }
+
+    .loader {
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(0, 212, 255, 0.1);
+      border-top: 4px solid var(--accent);
+      border-right: 4px solid var(--accent2);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     /* layout: image on top of the card */
     .cert-row { display:flex; flex-direction:column; gap:12px; }
@@ -925,16 +985,15 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: rgba(99,102,241,0.8);
-      backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255,255,255,0.4);
+      background: rgba(0,212,255,0.8);
+      border: 1.5px solid rgba(0,245,255,0.6);
       color: white;
       font-size: 1.4rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
       z-index: 20;
     }
 
@@ -1003,11 +1062,11 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.85rem;
       color: rgba(226,232,240,0.85);
-      backdrop-filter: blur(10px);
       z-index: 15;
       border: 1.5px solid rgba(255,255,255,0.2);
       font-weight: 600;
       letter-spacing: 0.05em;
+      background: rgba(10,14,39,0.8);
     }
 
     .carousel-title {
@@ -1035,13 +1094,12 @@
     }
 
     .place-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(22px) saturate(1.6);
-      -webkit-backdrop-filter: blur(22px) saturate(1.6);
-      border: 1px solid var(--glass-border);
+      background: rgba(10,14,39,0.6);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       overflow: hidden;
       color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .place-card video {
@@ -1055,13 +1113,26 @@
       font-weight: 600;
       font-size: 1rem;
     }
+
+    /* Glass Lens Effect */
+    .glass-lens-effect {
+      position: relative;
+    }
+
+    .glass-lens-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      border-radius: 24px;
+    }
   </style>
 </head>
 <body>
 
 <!-- Loading Screen -->
 <div id="loadingScreen">
-  <dotlottie-wc src="https://lottie.host/5c289ecb-67dc-40b8-b39f-efad128036a0/V6AuBwuTUC.lottie" style="width: 400px;height: 400px" autoplay loop></dotlottie-wc>
+  <div class="loader"></div>
 </div>
 
 <!-- Mesh Background -->
@@ -1263,9 +1334,6 @@
               <img class="cert-thumb" src="assests/Certificates/international/Security and Connectivity Support.jpg" alt="Security and Connectivity Support" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Security and Connectivity Support</div>
-                <div class="cert-desc">This professional certificate was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Security and Connectivity Support" course. The program was offered by the Ministry of Education-Giza (SP) in collaboration with the globally recognized Cisco Networking Academy.
-
-The course provided specialized training in network security and infrastructure connectivity, covering essential skills for maintaining and securing modern digital networks.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1274,9 +1342,6 @@ The course provided specialized training in network security and infrastructure 
               <img class="cert-thumb" src="assests/Certificates/international/Operating Systems Support.jpg" alt="Operating Systems Support" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Operating Systems Support</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Operating Systems Support" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP).
-
-This course focused on the foundational knowledge and practical skills required to support, configure, and manage various operating systems, ensuring optimal performance and troubleshooting system-level issues.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1285,9 +1350,6 @@ This course focused on the foundational knowledge and practical skills required 
               <img class="cert-thumb" src="assests/Certificates/international/Networking Devices and Initial Configuration.jpg" alt="Networking Devices and Initial Configuration" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Networking Devices and Initial Configuration</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Networking Devices and Initial Configuration" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course focused on the fundamental principles of networking hardware, including the identification of various networking devices and the practical skills required for their initial setup and configuration.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1296,9 +1358,6 @@ The course focused on the fundamental principles of networking hardware, includi
               <img class="cert-thumb" src="assests/Certificates/international/Network Support and Security.jpg" alt="Network Support and Security" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Network Support and Security</div>
-                <div class="cert-desc">This professional certificate was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Network Support and Security" course. The program was provided by the Ministry of Education-Giza (SP) through the Cisco Networking Academy.
-
-The course focused on the essential principles of maintaining network integrity, providing technical support, and implementing security protocols to protect data and infrastructure.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1307,9 +1366,6 @@ The course focused on the essential principles of maintaining network integrity,
               <img class="cert-thumb" src="assests/Certificates/international/Networking Basics.jpg" alt="Networking Basics" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Networking Basics</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Networking Basics" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course provided a comprehensive introduction to the fundamental concepts of networking. It covered essential topics such as how networks operate, the roles of different network components, and the basic principles of data transmission and communication protocols.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1318,9 +1374,6 @@ The course provided a comprehensive introduction to the fundamental concepts of 
               <img class="cert-thumb" src="assests/Certificates/international/Network Defense.jpg" alt="Network Defense" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Network Defense</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Network Defense" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course focused on the strategies and tools necessary to protect network infrastructures from cyber threats. It covered key concepts in proactive defense, monitoring, and responding to security incidents to ensure the resilience of digital assets.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1329,9 +1382,6 @@ The course focused on the strategies and tools necessary to protect network infr
               <img class="cert-thumb" src="assests/Certificates/international/Network Addressing and Basic Troubleshooting.jpg" alt="Network Addressing and Basic Troubleshooting" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Network Addressing and Basic Troubleshooting</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Network Addressing and Basic Troubleshooting" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course focused on the critical skills of IP addressing, subnetting, and the fundamental techniques required to identify and resolve common network connectivity issues.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1340,9 +1390,6 @@ The course focused on the critical skills of IP addressing, subnetting, and the 
               <img class="cert-thumb" src="assests/Certificates/international/IT Customer Support Basics.jpg" alt="IT Customer Support Basics" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">IT Customer Support Basics</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "IT Customer Support Basics" course. The program was offered by the Ministry of Education-Giza (SP) through the Cisco Networking Academy.
-
-The course provided essential training in the fundamental principles of IT customer service. It covered effective communication strategies, technical troubleshooting methodologies, and the "soft skills" required to provide high-quality support to end-users in a professional environment.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1351,9 +1398,6 @@ The course provided essential training in the fundamental principles of IT custo
               <img class="cert-thumb" src="assests/Certificates/international/Introduction to Modern AI.jpg" alt="Introduction to Modern AI" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Introduction to Modern AI</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Introduction to Modern AI" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP).
-
-The course provided a foundational exploration of modern Artificial Intelligence, covering its core concepts, practical applications, and the transformative role AI plays in today's digital landscape.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1362,9 +1406,6 @@ The course provided a foundational exploration of modern Artificial Intelligence
               <img class="cert-thumb" src="assests/Certificates/international/Hardware and Upgrade Support.jpg" alt="Hardware and Upgrade Support" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Hardware and Upgrade Support</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Hardware and Upgrade Support" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP).
-
-The course provided comprehensive training on identifying computer hardware components, performing system upgrades, and providing technical support to ensure hardware reliability and performance.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1373,9 +1414,6 @@ The course provided comprehensive training on identifying computer hardware comp
               <img class="cert-thumb" src="assests/Certificates/international/Introduction to Cybersecurity.jpg" alt="Introduction to Cybersecurity" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Introduction to Cybersecurity</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Introduction to Cybersecurity" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course provided a comprehensive overview of the cybersecurity landscape, covering the importance of data confidentiality, integrity, and availability. It also introduced common cyber threats, vulnerabilities, and the protective measures used by individuals and organizations to safeguard digital assets.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1384,9 +1422,6 @@ The course provided a comprehensive overview of the cybersecurity landscape, cov
               <img class="cert-thumb" src="assests/Certificates/international/English for IT 2.jpg" alt="English for IT 2" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">English for IT 2</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "English for IT 2" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP) and OpenEDG.
-
-The course focused on advanced English language skills tailored specifically for IT professionals, including technical terminology, professional communication in a tech environment, and the ability to understand and create complex technical documentation.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1395,9 +1430,6 @@ The course focused on advanced English language skills tailored specifically for
               <img class="cert-thumb" src="assests/Certificates/international/Endpoint Security.jpg" alt="Endpoint Security" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Endpoint Security</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Endpoint Security" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course provided in-depth knowledge on protecting network endpoints—such as computers, laptops, and mobile devices—from malicious threats and exploitation. It covered essential security concepts, including vulnerability management, encryption, and the implementation of security policies to ensure the integrity of a network's perimeter.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1406,9 +1438,6 @@ The course provided in-depth knowledge on protecting network endpoints—such as
               <img class="cert-thumb" src="assests/Certificates/international/English for IT 1.jpg" alt="English for IT 1" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">English for IT Professionals</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for successfully completing the "English for IT 1" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP) and OpenEDG.
-
-The course provided a foundational level of English language skills specifically designed for IT professionals. It covered essential technical vocabulary, core grammar within a tech context, and the communication skills needed to participate effectively in technical discussions and understand basic IT documentation.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1417,9 +1446,6 @@ The course provided a foundational level of English language skills specifically
               <img class="cert-thumb" src="assests/Certificates/international/Cyber Threat Management.jpg" alt="Cyber Threat Management" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Cyber Threat Management</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "Cyber Threat Management" course. The program was delivered through the Cisco Networking Academy in collaboration with the Ministry of Education-Giza (SP).
-
-The course provided advanced training on how to explore, monitor, and manage cyber threats effectively. It covered the methodologies used to identify potential vectors of attack and the implementation of governance and control frameworks to mitigate risks and maintain organizational security.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1428,9 +1454,6 @@ The course provided advanced training on how to explore, monitor, and manage cyb
               <img class="cert-thumb" src="assests/Certificates/international/AI Fundamentals with IBM SkillsBuild.jpg" alt="AI Fundamentals with IBM SkillsBuild" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">AI Fundamentals with IBM SkillsBuild</div>
-                <div class="cert-desc">This professional certification was awarded to Abdelrahman Mohamed Sayed for the successful completion of the "AI Fundamentals with IBM SkillsBuild" course. The program was delivered through the Cisco Networking Academy in partnership with the Ministry of Education-Giza (SP) and IBM.
-
-The course provided a solid foundation in Artificial Intelligence, covering the core principles of AI, its ethical considerations, and how it is being utilized to solve real-world problems. This certification demonstrates a modern understanding of AI technologies backed by two of the world's leading tech giants.</div>
                 <div class="cert-date">2025 · IBM SkillsBuild and Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1439,9 +1462,6 @@ The course provided a solid foundation in Artificial Intelligence, covering the 
               <img class="cert-thumb" src="assests/Certificates/international/سيسكو امتحان دولي عبدالرحمن محمد سيد حسن-page-00001.jpg" alt="Cisco Certified Support Technician (CCST) Networking" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Cisco Certified Support Technician (CCST) Networking</div>
-                <div class="cert-desc">This is a globally recognized professional certification awarded to Abdelrahman Mohamed Sayed by Cisco. It validates the holder's fundamental knowledge and skills required to perform entry-level IT support tasks, specifically in the field of networking.
-
-Achieving this certification demonstrates a verified ability to understand network operations, security, and troubleshooting at a professional standard.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1450,9 +1470,6 @@ Achieving this certification demonstrates a verified ability to understand netwo
               <img class="cert-thumb" src="assests/Certificates/international/bank misr x google mahrat digital marketing-page-00001.jpg" alt="Fundamentals of Digital Marketing" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Fundamentals of Digital Marketing</div>
-                <div class="cert-desc">This professional training completion certificate was awarded to Abdelrahman Mohamed Sayed for successfully completing the "Maharat min Google: Fundamentals of Digital Marketing" course. The program was delivered by Google in strategic partnership with Banque Misr.
-
-The course provided a comprehensive foundation in digital marketing strategies, including search engine optimization (SEO), social media marketing, content strategy, and data analytics to drive business growth in the digital age.</div>
                 <div class="cert-date">2025 · Google and Bank Misr</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1461,15 +1478,6 @@ The course provided a comprehensive foundation in digital marketing strategies, 
               <img class="cert-thumb" src="assests/Certificates/international/Cisco Digital Winter CyberSecurity-page-00001.jpg" alt="Cisco Certified Support Technician (CCST) Cybersecurity" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Cisco Certified Support Technician (CCST) Cybersecurity</div>
-                <div class="cert-desc">This is a high-level, globally recognized professional certification awarded to Abdelrahman Mohamed Sayed by Cisco. It validates the holder's professional expertise in the foundational principles of cybersecurity.
-
-Achieving this certification demonstrates a verified ability to:
-
-Understand and implement security principles, network security, and endpoint security.
-
-Handle vulnerability management and incident response.
-
-Navigate the complexities of data protection and digital forensics at a professional standard.</div>
                 <div class="cert-date">2025 · Cisco Networking Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1478,19 +1486,6 @@ Navigate the complexities of data protection and digital forensics at a professi
               <img class="cert-thumb" src="assests/Certificates/international/20260223204655822_0001.jpg" alt="Be Internet Awesome" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Be Internet Awesome</div>
-                <div class="cert-desc">This certificate was awarded to Abdelrahman Mohamed Sayed by Google for successfully completing the "Be Internet Awesome" program. This initiative focuses on empowering individuals to navigate the digital world safely, confidently, and responsibly.
-
-By earning this certificate, Abdelrahman has demonstrated core digital literacy skills, including:
-
-Smartness: Knowing how to share information carefully with others.
-
-Alertness: Distinguishing between what is real and what is fake online.
-
-Stronghold: Creating secure passwords to protect personal information.
-
-Kindness: Spreading positivity and standing up against cyberbullying.
-
-Bravery: Understanding the importance of open communication with trusted adults about online activities.</div>
                 <div class="cert-date">2024 · Google</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1499,9 +1494,6 @@ Bravery: Understanding the importance of open communication with trusted adults 
               <img class="cert-thumb" src="assests/Certificates/international/Python Programming Basics.png" alt="Python Programming Basics" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Python Programming Basics</div>
-                <div class="cert-desc">for successfully completing the study and exam for the "Python Programming Basics" course. The program was delivered through the Huawei ICT Academy, a global initiative that provides industry-standard technology education.
-
-This certification validates the holder's foundational knowledge in Python programming, covering essential syntax, data structures, and the logic required to develop efficient software solutions.</div>
                 <div class="cert-date">2026 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1510,9 +1502,6 @@ This certification validates the holder's foundational knowledge in Python progr
               <img class="cert-thumb" src="assests/Certificates/international/Information Representation and Data Organization.png" alt="Information Representation and Data Organization" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Information Representation and Data Organization</div>
-                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Information Representation and Data Organization" course. The program was delivered by the Huawei ICT Academy, a global leader in providing industry-aligned technical education.
-
-The course curriculum focused on the fundamental methods of representing information in digital systems and the advanced logic of data organization, which are essential building blocks for data science and AI.</div>
                 <div class="cert-date">2026 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1521,9 +1510,6 @@ The course curriculum focused on the fundamental methods of representing informa
               <img class="cert-thumb" src="assests/Certificates/international/Data Analasis.png" alt="Data Analysis" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Data Analysis</div>
-                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Data Management and Analytics" course. The program was delivered through the Huawei ICT Academy, ensuring a curriculum aligned with global industry standards.
-
-The course provided comprehensive training on the lifecycle of data, including how to efficiently manage, organize, and analyze large datasets to extract meaningful insights for decision-making.</div>
                 <div class="cert-date">2026 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1532,9 +1518,6 @@ The course provided comprehensive training on the lifecycle of data, including h
               <img class="cert-thumb" src="assests/Certificates/international/Cloud Computing.png" alt="Cloud Computing" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Cloud Computing</div>
-                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Development and Basic Concepts of Cloud Computing" course. The program was delivered through the Huawei ICT Academy, ensuring a curriculum that meets international industry standards.
-
-The course focused on the evolution of cloud technologies, covering the fundamental architecture, service models, and core concepts essential for developing and managing cloud-based solutions.</div>
                 <div class="cert-date">2026 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1543,9 +1526,6 @@ The course focused on the evolution of cloud technologies, covering the fundamen
               <img class="cert-thumb" src="assests/Certificates/international/Overview of AI (Arabic).png" alt="Overview of AI (Arabic)" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Overview of AI (Arabic)</div>
-                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "Overview of AI (Arabic)" course. The program was delivered through the Huawei ICT Academy, providing a comprehensive introduction to the field of Artificial Intelligence.
-
-The course covered the foundational concepts, history, and modern applications of AI, specifically tailored to provide a deep understanding of how these technologies are shaping the future of the ICT industry.</div>
                 <div class="cert-date">2025 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
                 </div>
@@ -1554,9 +1534,6 @@ The course covered the foundational concepts, history, and modern applications o
               <img class="cert-thumb" src="assests/Certificates/international/Al Basic Overview of AI(CRA Training Program).png" alt="Al Basic Overview of AI(CRA Training Program)" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Al Basic Overview of AI(CRA Training Program)</div>
-                <div class="cert-desc">This professional Certificate of Completion was awarded to Abdelrahman Mohamed Sayed for successfully completing the study and examination for the "AI Basic: Overview of AI" course. The program was delivered as part of the CRA Training Program through the Huawei ICT Academy.
-
-The course provided a deep dive into the foundational elements of Artificial Intelligence, including its core technologies, industry trends, and practical use cases, ensuring a strong technical background in AI applications.</div>
                 <div class="cert-date">2025 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1565,7 +1542,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/international/overview of ai.png" alt="Overview of AI" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Overview of AI</div>
-                <div class="cert-desc">Awarded to Abdelrahman Mohamed Sayed Hassan in recognition of his commitment and successful completion of the "Overview of AI" course. This training was part of a month-long virtual program in July 2022, supported by partners such as The American University in Cairo</div>
                 <div class="cert-date">2025 · Huawei ICT Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1580,7 +1556,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/20260223204752923_0001.jpg" alt="National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)</div>
-                <div class="cert-desc">Ranked 1st across Giza Governorate and achieved 3rd Place Nationwide in the prestigious 'Little Innovator' competition (2024/2025). This award recognizes exceptional national-level excellence in creative thinking, technical innovation, and project development for preparatory schools.</div>
                 <div class="cert-date">2024 · Sheikh Zayed Administration</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1589,7 +1564,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/national/20260223204952864_0001.jpg" alt="1st Place Nationwide in Coding & AI" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">1st Place Winner - Coding & AI Competition</div>
-                <div class="cert-desc">Achieved 1st Place at the National Level in the Coding Languages and Artificial Intelligence competition (Preparatory Stage, 2024/2025). Recognized by the Ministry of Education for exceptional technical performance, programming logic, and innovative use of AI.</div>
                 <div class="cert-date">2025 · Ministry of Education</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1598,7 +1572,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/national/شهادات المسابقات _الصيفية_2025_إنجازات بلدي-6 (1)-page-00001.jpg" alt="6th Place Winner - Enjazat Baladi Research Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">6th Place Nationwide - "Enjazat Baladi" Research Competition</div>
-                <div class="cert-desc">Ranked 6th at the National Level in the 'Enjazat Baladi' competition (2025), organized by the Ministry of Education. This award recognizes high-level skills in scientific research, data analysis, and the ability to document national developmental projects.</div>
                 <div class="cert-date">2025 · Ministry of Education</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1607,7 +1580,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/national/شهادات المسابقات _الصيفية_2025_التكنولوجيا الخضراء-10 (1)-page-00001.jpg" alt="7th Place Nationwide - "Green Technology" Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">7th Place Nationwide - "Green Technology" Competition</div>
-                <div class="cert-desc">Achieved 7th Place in the "Green Technology" competition organized by the Ministry of Education. This award recognizes innovation in sustainable technology and environmental awareness.</div>
                 <div class="cert-date">2025 · Ministry of Education</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1616,8 +1588,23 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/national/digitopia عبدالرحمن محمد سيد حسن-page-00001.jpg" alt="DIGITOPIA Competition Finalist" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">DIGITOPIA Competition Finalist</div>
-                <div class="cert-desc">Recognized by the Ministry of Communications and Information Technology (MCIT) for active participation and reaching the Second Stage of the 'DIGITOPIA' competition (2025) in the field of Software & Artificial Intelligence. This achievement reflects advanced skills in AI technologies and software development among the top young talents in Egypt.</div>
                 <div class="cert-date">2025 · Ministry of Communications and Information Technology</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+          <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/national/6th.jpg" alt='6th Place Nationwide - "Enjazat Baladi" Research Competition' onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">6th Place Nationwide - "Enjazat Baladi" Research Competition</div>
+                <div class="cert-date">2025 · Ministry of Education</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/national/7th.jpg" alt='7th Place Nationwide - "Green Technolgy" Research Competition' onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">7th Place Nationwide - "Green Technology" Research Competition</div>
+                <div class="cert-date">2025 · Ministry of Education</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
             </div>
@@ -1631,7 +1618,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/20260223204825908_0001.jpg" alt="First Place Award - &quot;The Little Innovator&quot; Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">First Place Award - "The Little Innovator" Competition</div>
-                <div class="cert-desc">Achieved First Place in 'The Little Innovator' competition at the district level. This prestigious award recognizes exceptional creativity, problem-solving abilities, and the successful development of an innovative project.</div>
                 <div class="cert-date">2024 · Bent Elsediq School</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1640,7 +1626,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/20260223204752923_0001.jpg" alt="National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">National Award - 1st Place (Giza Governorate) & 3rd Place (National Level)</div>
-                <div class="cert-desc">Ranked 1st across Giza Governorate and achieved 3rd Place Nationwide in the prestigious 'Little Innovator' competition (2024/2025). This award recognizes exceptional national-level excellence in creative thinking, technical innovation, and project development for preparatory schools.</div>
                 <div class="cert-date">2024 · Sheikh Zayed Administration</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1649,7 +1634,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/20260223204545007_0001.jpg" alt="Top Student Rank" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Top Student Rank</div>
-                <div class="cert-desc">Honored as one of the top-ranking students in the 4th Grade (2020/2021) for achieving perfect scores in all academic subjects. This award highlights a long-standing commitment to academic excellence and a strong educational foundation.</div>
                 <div class="cert-date">2021 · Bent Elsediq School</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1658,7 +1642,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/20260223204343408_0001.jpg" alt="6th Place Nationwide - Enjazat Baladi Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">6th Place Nationwide - "Enjazat Baladi" Competition</div>
-                <div class="cert-desc">Achieved 6th Place at the National Level in the 'Enjazat Baladi' competition. This award recognizes deep research skills and a strong understanding of national development projects, demonstrating the ability to analyze and present large-scale governmental initiatives.</div>
                 <div class="cert-date">2026 · Sheikh Zayed Administration</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1667,7 +1650,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/WhatsApp Image 2025-06-30 at 21.33.52_cf410b13.jpg" alt="1st Place Winner - "Digital October Heroes" Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">1st Place Winner - "Digital October Heroes" Competition</div>
-                <div class="cert-desc">Awarded 1st Place in the 'Digital October Heroes' competition across Giza Governorate, organized by the IT Academy and the Ministry of Education. This award recognizes mastery in digital tools, creative content creation, and technical excellence in honoring national history through technology.</div>
                 <div class="cert-date">2025 · Giza Directorate of Education</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1676,7 +1658,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/governorate/WhatsApp Image 2025-02-03 at 19.55.34_5e1910b2.jpg" alt="2nd Place Winner - AI Animation Video Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">2nd Place Winner - AI Animation Video Competition</div>
-                <div class="cert-desc">Achieved 2nd Place in the AI Animation Video competition organized by the IT Academy in Giza. This award demonstrates proficiency in utilizing Artificial Intelligence tools to create creative digital content and advanced animation.</div>
                 <div class="cert-date">2025 · Giza Directorate of Education</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1691,7 +1672,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/certificate-page-00001.jpg" alt="CodeCombat Certification - Introduction to Computer Science" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">CodeCombat Certification - Introduction to Computer Science</div>
-                <div class="cert-desc">Successfully completed the Introduction to Computer Science course on CodeCombat. Developed 165 lines of Python code across 18 levels, mastering core programming concepts including Algorithms, Variables, While Loops, Strings, and Basic Syntax.</div>
                 <div class="cert-date">2021 · CodeIt Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1700,7 +1680,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Deci Level 2-page-00001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - Level 2 Completion" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - Level 2 Completion</div>
-                <div class="cert-desc">Successfully completed Level 2 of the Digital Egypt Cubs Initiative (DECI), a flagship national program by the Ministry of Communications and Information Technology. This scholarship recognizes elite students in Egypt, focusing on building advanced digital skills and preparing the next generation of technology leaders.</div>
                 <div class="cert-date">2025 · Ministry of Communications and Information Technology</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1709,7 +1688,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Deci SummerCamp-page-00001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - Summer Camp Achievement Award" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - Summer Camp Achievement Award</div>
-                <div class="cert-desc">Awarded a Premium Award for exceptional accomplishments during the DECI Summer Camp (Batch 2, August 2024). This recognition by the Ministry of Communications and Information Technology highlights advanced technical skills, teamwork, and innovative thinking in a competitive intensive training environment.</div>
                 <div class="cert-date">2024 · Ministry of Communications and Information Technology</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1718,7 +1696,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/عبدالرحمن محمد سيد حسن-page-00001.jpg" alt="&quot;Our World with AI&quot; Workshop - Professional Development Initiative" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">"Our World with AI" Workshop - Professional Development Initiative</div>
-                <div class="cert-desc">Participated in an intensive workshop titled 'Our World with Artificial Intelligence' (June 2023). This training focused on the fundamental impact of AI technologies on our modern world and explored the future of digital transformation.</div>
                 <div class="cert-date">2023 · Develop Yourself Initiative</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1727,7 +1704,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Deci Level 1-page-00001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - Level 1 Completion" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - Level 1 Completion</div>
-                <div class="cert-desc">Successfully completed Level 1 of the Digital Egypt Cubs Initiative (DECI) in October 2024. This national scholarship by the Ministry of Communications and Information Technology is designed to identify and nurture top technological talents across Egypt, providing a solid foundation in digital literacy and advanced IT concepts.</div>
                 <div class="cert-date">2024 · Ministry of Communications and Information Technology</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1736,7 +1712,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/20260223204909354_0001.jpg" alt="Digital Egypt Cubs Initiative (DECI) - &quot;August Challenge&quot; Achievement Award" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Digital Egypt Cubs Initiative (DECI) - "August Challenge" Achievement Award</div>
-                <div class="cert-desc">Achieved 1st Place at the National Level in the Coding Languages and Artificial Intelligence competition (Preparatory Stage, 2024/2025). Recognized by the Ministry of Education for exceptional technical performance, programming logic, and innovative use of AI.</div>
                 <div class="cert-date">2024 · Ministry of Communications and Information Technology</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1745,7 +1720,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Technology Academy Python.jpg" alt="Python Programming - Level 1 Achievement Award" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Technology Academy - Python Programming Level 1 Achievement Award</div>
-                <div class="cert-desc">Successfully completed Level 1 of Python Programming with exceptional performance. Demonstrated high efficiency, commitment, and a unique ability to learn and develop, mastering the core foundations of Python coding.</div>
                 <div class="cert-date">2025 · Giza Information Technology Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1754,7 +1728,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0022.jpg" alt="Python Programming Foundation" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Python Programming Foundation</div>
-                <div class="cert-desc">Completed the Python programming foundation course at CodeIt Academy (December 2021). This early certification marks the beginning of a dedicated journey in software development, focusing on logic building and core coding principles from a young age.</div>
                 <div class="cert-date">2021 · CodeIt Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1763,7 +1736,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0020.jpg" alt="1st Place Nationwide in Coding & AI" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">"Hello Python" - Level (1) Completion Certificate</div>
-                <div class="cert-desc">Successfully completed Level (1) of the 'Hello Python' programming course at CodeIt Academy (April 2022). This certification confirms early proficiency in Python syntax and basic logic building within a structured academic environment.</div>
                 <div class="cert-date">2022 · CodeIt Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1772,7 +1744,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0021.jpg" alt="CSW Generative AI - Certificate of Completion" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">CSW Generative AI - Certificate of Completion</div>
-                <div class="cert-desc">Successfully completed the CSW Generative AI program (December 2024), a collaborative initiative by Microsoft, Care Egypt, and the Ministry of Youth and Sports. Gained proficiency in modern Generative AI tools and their applications in creating innovative digital solutions.</div>
                 <div class="cert-date">2024 · Ministry of Youth and Sports</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1781,7 +1752,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/IMG-20250630-WA0018.jpg" alt="Robotics Engineering Course" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Robotics Engineering Course</div>
-                <div class="cert-desc">Successfully completed an intensive 20-hour Robotics course at IQ Academy. Gained hands-on experience in robot design, assembly, and programming, bridging the gap between hardware engineering and software logic.</div>
                 <div class="cert-date">2016 · IQ Academy</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1790,7 +1760,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan(the auc's fun lab)_page-0001.jpg" alt="1st Place Nationwide in Coding & AI" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">The AUC’s Fun Lab - Summer Training Certificate</div>
-                <div class="cert-desc">Successfully completed 'The AUC’s Fun Lab' summer training (July 2022), an interactive virtual program organized by The American University in Cairo (AUC) and Madrasaty. This program focused on fostering scientific curiosity, experimental learning, and innovative thinking through hands-on virtual lab activities.</div>
                 <div class="cert-date">2022 · The American University in Cairo</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1799,7 +1768,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan (رحلة داجل جسم النسان)_page-0001.jpg" alt="A Journey Inside the Human Body" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">A Journey Inside the Human Body</div>
-                <div class="cert-desc">This certificate was awarded to Abdelrahman Mohamed Sayed Hassan by the Madrasati platform in recognition of his outstanding commitment and successful completion of the specialized course "A Journey Inside the Human Body." The program was a key component of the Madrasati Virtual Summer Training for Children, held throughout July 2022. The curriculum focused on introducing complex biological concepts in an engaging, interactive format</div>
                 <div class="cert-date">2022 · Madrasati</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1808,7 +1776,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan(robotics) _page-0001.jpg" alt="Introduction to Robotics" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Introduction to Robotics</div>
-                <div class="cert-desc">This certificate of appreciation was awarded to Abdelrahman Mohamed Sayed Hassan for his remarkable commitment and successful completion of the "Introduction to Robotics" course. The program was part of the Madrasati Virtual Summer Training for Children, which took place throughout July 2022. The course provided a foundational understanding of robotics and engineering principles in an interactive online environment.</div>
                 <div class="cert-date">2022 · Madrasati</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1817,8 +1784,15 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/courses/Abdelrahman Mohamed Sayed Hassan (math)_page-0001.jpg" alt="Math Competition" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Math for Kids</div>
-                <div class="cert-desc">Awarded to Abdelrahman Mohamed Sayed Hassan in recognition of his commitment and successful completion of the "Math for Kids" course. This training was part of a month-long virtual program in July 2022, supported by partners such as The American University in Cairo</div>
                 <div class="cert-date">2022 · Madrasati</div>
+                <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
+              </div>
+            </div>
+            <div class="cert-card glass">
+              <img class="cert-thumb" src="assests/Certificates/courses/Mint Squad.jpeg" alt="Mint Squad " onerror="this.style.display='none'">
+              <div class="cert-body">
+                <div class="cert-title">Mint Squad Program</div>
+                <div class="cert-date">2026 · Mint Squad</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
             </div>
@@ -1832,7 +1806,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/activities/20260223204514547_0001.jpg" alt="Egyptian Swimming Federation" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Egyptian Swimming Federation</div>
-                <div class="cert-desc">Awarded the Star Evaluation Certification by the Egyptian Swimming Federation at UFC Gym Egypt, demonstrating high-level physical fitness, discipline, and advanced swimming techniques.</div>
                 <div class="cert-date">2022 · The Club</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1841,7 +1814,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/activities/20260223204312194_0001.jpg" alt="Gifted and Smart Learning Department" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Gifted and Smart Learning Department</div>
-                <div class="cert-desc">Awarded a Certificate of Merit by the Ministry of Education (Gifted and Smart Learning Department) for exceptional talent and excellence in Computer and Theater, recognizing both technical and creative skills.</div>
                 <div class="cert-date">2025 · Bent Elsediq School</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1850,7 +1822,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/activities/20260223204422669_0001.jpg" alt="Computer Technology Training" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">Computer Technology Training</div>
-                <div class="cert-desc">Successfully completed an intensive Summer Training Program in Computer and Information Technology organized by the Ministry of Education (Sheikh Zayed District). Recognized for active participation, commitment, and creative contributions to the program’s success.</div>
                 <div class="cert-date">2025 · Bent Elsediq School</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1859,7 +1830,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/activities/20260223204230060_0001.jpg" alt="School Excellence Award in Computer" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">School Excellence Award in Computer</div>
-                <div class="cert-desc">Received the School Excellence Award in Computer for outstanding academic performance and technical skills in computer science.</div>
                 <div class="cert-date">2025 · Bent Elsediq School</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1868,7 +1838,6 @@ The course provided a deep dive into the foundational elements of Artificial Int
               <img class="cert-thumb" src="assests/Certificates/activities/20260223204153051_0001.jpg" alt="School Excellence Award in Computer" onerror="this.style.display='none'">
               <div class="cert-body">
                 <div class="cert-title">School Excellence Award in Computer</div>
-                <div class="cert-desc">Awarded a Certificate of Appreciation by Bent Al-Siddiq Language School for demonstrating exceptional excellence and a collaborative spirit within the computer laboratory, reflecting strong leadership and teamwork skills</div>
                 <div class="cert-date">2023 · Bent Elsediq School</div>
                 <a href="#" class="btn-view"><i class="fa-solid fa-eye"></i> View Certificate</a>
               </div>
@@ -1923,6 +1892,24 @@ The course provided a deep dive into the foundational elements of Artificial Int
           <div class="carousel-slide active" data-src="assests/takrimaty/1 (11).jpeg" data-title="تكريم 12">
             <img src="assests/takrimaty/1 (11).jpeg" alt="تكريم 12">
           </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (12).jpeg" data-title="تكريم 13">
+            <img src="assests/takrimaty/1 (12).jpeg" alt="تكريم 13">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (13).jpeg" data-title="تكريم 14">
+            <img src="assests/takrimaty/1 (13).jpeg" alt="تكريم 14">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (14).jpeg" data-title="تكريم 15">
+            <img src="assests/takrimaty/1 (14).jpeg" alt="تكريم 15">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (15).jpeg" data-title="تكريم 16">
+            <img src="assests/takrimaty/1 (15).jpeg" alt="تكريم 16">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (16).jpeg" data-title="تكريم 17">
+            <img src="assests/takrimaty/1 (16).jpeg" alt="تكريم 17">
+          </div>
+          <div class="carousel-slide active" data-src="assests/takrimaty/1 (17).jpg" data-title="تكريم 18">
+            <img src="assests/takrimaty/1 (17).jpg" alt="تكريم 18">
+          </div>
           <!-- add additional .carousel-slide elements as needed -->
         </div>
 
@@ -1936,7 +1923,7 @@ The course provided a deep dive into the foundational elements of Artificial Int
 
         <!-- slide counter -->
         <div class="carousel-counter">
-          <span id="takrimaty-current-slide">1</span> / <span id="takrimaty-total-slides">12</span>
+          <span id="takrimaty-current-slide">1</span> / <span id="takrimaty-total-slides">18</span>
         </div>
 
         <!-- dots indicator -->
@@ -1953,6 +1940,14 @@ The course provided a deep dive into the foundational elements of Artificial Int
           <span class="carousel-dot" onclick="goToTakrimatySlide(9, event)"></span>
           <span class="carousel-dot" onclick="goToTakrimatySlide(10, event)"></span>
           <span class="carousel-dot" onclick="goToTakrimatySlide(11, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(12, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(13, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(14, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(15, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(16, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(17, event)"></span>
+          <span class="carousel-dot" onclick="goToTakrimatySlide(18, event)"></span>
+        </div>
         </div>
       </div>
     </div>
@@ -2952,11 +2947,10 @@ The course provided a deep dive into the foundational elements of Artificial Int
     const lbDesc = document.getElementById('lightboxDesc');
     const lbDate = document.getElementById('lightboxDate');
     const titleEl = card.querySelector('.cert-title');
-    const descEl = card.querySelector('.cert-desc');
     const dateEl = card.querySelector('.cert-date');
     lbImg.src = src;
     lbTitle.textContent = titleEl ? titleEl.textContent : '';
-    lbDesc.textContent = descEl ? descEl.textContent : '';
+    lbDesc.textContent = '';
     lbDate.textContent = dateEl ? dateEl.textContent : '';
     lb.style.display = 'block';
     document.body.style.overflow = 'hidden';
@@ -3030,22 +3024,29 @@ The course provided a deep dive into the foundational elements of Artificial Int
   });
 
   /* ── Hide loading screen when page loads ── */
+  let loadingScreenHidden = false;
+  
   function hideLoadingScreen() {
+    if (loadingScreenHidden) return;
+    loadingScreenHidden = true;
+    
     const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
-      loadingScreen.classList.add('hidden');
+    if (loadingScreen) {
+      loadingScreen.style.opacity = '0';
+      loadingScreen.style.pointerEvents = 'none';
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+      }, 300);
     }
   }
 
-  // Hide as soon as the page fully loads
-  if (document.readyState === 'complete') {
-    hideLoadingScreen();
-  } else {
-    window.addEventListener('load', hideLoadingScreen);
-  }
-
-  // Fallback: hide after 10 seconds max (in case load event never fires)
-  setTimeout(hideLoadingScreen, 10000);
+  // Fast hide on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(hideLoadingScreen, 600);
+  });
+  
+  // Backup: hide after 2 seconds max
+  setTimeout(hideLoadingScreen, 2000);
 
   /* ── Talents Carousel Functions ── */
   let talentsCurrent = 0;
@@ -3055,7 +3056,7 @@ The course provided a deep dive into the foundational elements of Artificial Int
 
   /* ── Takrimaty Carousel Functions ───────────────── */
   let takrimatyCurrent = 0;
-  const takrimatyTotal = 12; // update if you add more slides
+  const takrimatyTotal = 18; // update if you add more slides
   let takrimatyAutoplayTimeout;
   let takrimatyHovered = false;
 
@@ -3659,6 +3660,170 @@ The course provided a deep dive into the foundational elements of Artificial Int
   updateGalleryCarousel();
   updatePhotos2Carousel();
   updateElectronicsCarousel();
+
+  // Glass Lens Effect
+  class GlassLensEffect {
+    constructor(targetElement) {
+      this.element = targetElement;
+      this.canvas = null;
+      this.gl = null;
+      this.program = null;
+      this.uniforms = {};
+      this.mouse = [0, 0];
+      this.enabled = true;
+      this.startTime = performance.now();
+      this.initGL();
+      this.setupEventListeners();
+    }
+
+    initGL() {
+      this.canvas = document.createElement('canvas');
+      this.canvas.className = 'glass-lens-canvas';
+      this.canvas.style.cssText = 'position: absolute; top: 0; left: 0; border-radius: 24px; opacity: 0; transition: opacity 0.3s ease; pointer-events: none;';
+      this.element.appendChild(this.canvas);
+      
+      this.gl = this.canvas.getContext('webgl', { alpha: true, antialias: false });
+      if (!this.gl) {
+        this.enabled = false;
+        this.canvas.remove();
+        return;
+      }
+
+      this.setupShaders();
+      this.setupBuffers();
+      this.updateCanvasSize();
+      this.startRender();
+    }
+
+    setupShaders() {
+      const gl = this.gl;
+      const vsSource = `
+        attribute vec2 position;
+        void main() { gl_Position = vec4(position, 0.0, 1.0); }
+      `;
+      const fsSource = `
+        precision mediump float;
+        uniform vec3 iResolution;
+        uniform float iTime;
+        uniform vec4 iMouse;
+        
+        void main() {
+          vec2 uv = gl_FragCoord.xy / iResolution.xy;
+          vec2 mouse = iMouse.xy / iResolution.xy;
+          if (length(iMouse) < 1.0) mouse = vec2(0.5);
+          
+          vec2 d = uv - mouse;
+          float dist = length(d);
+          float radius = 0.15;
+          
+          if (dist < radius) {
+            float lens = (1.0 - dist / radius) * 0.3;
+            float distort = sin(dist * 20.0 - iTime * 3.0) * 0.05;
+            
+            vec2 dir = normalize(d);
+            vec3 color = vec3(0.0, 0.8 + sin(iTime) * 0.2, 1.0);
+            color += vec3(0.2, 0.1, 0.5) * (1.0 - dist / radius);
+            
+            gl_FragColor = vec4(color, lens);
+          } else {
+            gl_FragColor = vec4(0.0);
+          }
+        }
+      `;
+
+      const vs = this.createShader(gl.VERTEX_SHADER, vsSource);
+      const fs = this.createShader(gl.FRAGMENT_SHADER, fsSource);
+      
+      this.program = gl.createProgram();
+      gl.attachShader(this.program, vs);
+      gl.attachShader(this.program, fs);
+      gl.linkProgram(this.program);
+      gl.useProgram(this.program);
+
+      this.uniforms = {
+        resolution: gl.getUniformLocation(this.program, 'iResolution'),
+        time: gl.getUniformLocation(this.program, 'iTime'),
+        mouse: gl.getUniformLocation(this.program, 'iMouse'),
+      };
+    }
+
+    createShader(type, source) {
+      const gl = this.gl;
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return shader;
+    }
+
+    setupBuffers() {
+      const gl = this.gl;
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+      const position = gl.getAttribLocation(this.program, 'position');
+      gl.enableVertexAttribArray(position);
+      gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+    }
+
+    updateCanvasSize() {
+      const rect = this.element.getBoundingClientRect();
+      this.canvas.width = rect.width;
+      this.canvas.height = rect.height;
+      this.canvas.style.width = rect.width + 'px';
+      this.canvas.style.height = rect.height + 'px';
+    }
+
+    setupEventListeners() {
+      this.element.addEventListener('mouseenter', () => {
+        this.canvas.style.opacity = '1';
+      });
+
+      this.element.addEventListener('mousemove', (e) => {
+        const rect = this.element.getBoundingClientRect();
+        this.mouse = [e.clientX - rect.left, this.canvas.height - (e.clientY - rect.top)];
+      });
+
+      this.element.addEventListener('mouseleave', () => {
+        this.canvas.style.opacity = '0';
+        this.mouse = [0, 0];
+      });
+    }
+
+    startRender() {
+      const render = () => {
+        if (!this.enabled) return;
+        
+        const currentTime = (performance.now() - this.startTime) / 1000;
+        const gl = this.gl;
+
+        gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+        gl.uniform3f(this.uniforms.resolution, this.canvas.width, this.canvas.height, 1.0);
+        gl.uniform1f(this.uniforms.time, currentTime);
+        gl.uniform4f(this.uniforms.mouse, this.mouse[0], this.mouse[1], 0, 0);
+
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(() => render());
+      };
+      render();
+    }
+  }
+
+  // Apply glass lens effect to project cards (with delay to avoid performance issues)
+  setTimeout(() => {
+    document.querySelectorAll('.project-card').forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('glass-lens-effect');
+        new GlassLensEffect(card);
+      }, index * 100);
+    });
+  }, 500);
+
 </script>
 
 </body>
